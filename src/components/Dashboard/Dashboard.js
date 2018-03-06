@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { getUser } from './../../ducks/users';
+import { getUser, getColorArr } from './../../ducks/users';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class Private extends Component {
     componentDidMount() {
@@ -9,6 +10,13 @@ class Private extends Component {
         this.props.getUser();
         //axios call to get given users preferences.
         //axios call to get the color, make, model, year, date options
+        
+            axios.get('/findcolor')
+            .then(res => {
+                console.log('res.data is now',res.data)
+                this.props.getColorArr(res.data);
+            })
+        
     }
 
     // displayWaitlistForm() { I changed this to make it simple. later, I may want to revisit this.
@@ -23,9 +31,15 @@ class Private extends Component {
     //         </div>
     //     )
     // }
+
+    
+
     render() {
         const user = this.props.user;
         console.log("user is now ", user)
+
+       
+
         return (
             <div>
                 <h1>Only you can see this. No one else.</h1>
@@ -48,6 +62,8 @@ class Private extends Component {
                 <p>Email: {user ? user.email : null}</p>
 
                 <p>ID: {user ? user.auth_id : null}</p>
+
+                {/* <h1>{console.log('the log in the jsx is ',this.props.colorArr)}</h1> */}
 
 
                 <div className="new_waitlist">
@@ -104,9 +120,11 @@ class Private extends Component {
 
 }
 function mapStateToProps(state) {
+    const {user, colorArr} = state
     return {
-        user: state.user
+        user,
+        colorArr
     }
 }
 
-export default connect(mapStateToProps, { getUser })(Private)
+export default connect(mapStateToProps, { getUser, getColorArr })(Private)

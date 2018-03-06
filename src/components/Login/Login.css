@@ -1,0 +1,25 @@
+.login{
+    height: 100vh;
+    display: grid;
+    grid-template-columns:20% 20% 20% 20% 20%;
+    grid-template-rows: 20% 20% 20% 20% 20%;
+    align-items: center;
+    justify-items: center;
+}
+.logo_wrapper{
+    height: 100%;
+    grid-column-start:3;
+    grid-row-start:2;
+}
+.car_logo{
+    height:100%;
+    grid-column-start:3;
+    grid-row-start:2;
+}
+
+.login_btn{
+    grid-column-start:3;
+    grid-row-start:3;
+    align-items: center;
+    justify-items: center;
+}

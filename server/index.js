@@ -5,8 +5,9 @@ const express = require('express')
 , passport = require('passport')
 , Auth0Strategy = require('passport-auth0')
 , massive = require('massive')
+, users_controller = require('../src/controllers/users_controller.js')
 
-const {//still need to define a lot of this in the dotenv
+const {
     SERVER_PORT,
     SESSION_SECRET,
     DOMAIN,
@@ -87,7 +88,7 @@ app.get('/auth/logout', (req, res) => {
     req.logOut();
     res.redirect('http://localhost:3000/')
 })
-
+app.get('/findcolor', users_controller.getColor)
 
 
 app.listen(SERVER_PORT, () => console.log(`listening on port ${SERVER_PORT}`));
