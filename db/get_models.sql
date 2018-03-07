@@ -1,1 +1,1 @@
-select * from models;
+select * from model;

@@ -1,11 +1,14 @@
 require('dotenv').config();
 
+
+
 const express = require('express')
 , session =require('express-session')
 , passport = require('passport')
 , Auth0Strategy = require('passport-auth0')
 , massive = require('massive')
 , users_controller = require('../src/controllers/users_controller.js')
+, bodyParser = require('body-parser')//Dont forget this next time you fool!!!!
 
 const {
     SERVER_PORT,
@@ -21,7 +24,7 @@ const app = express();
 massive(CONNECTION_STRING).then(db => {
     app.set('db' ,db);
 })
-
+app.use(bodyParser.json())
 app.use(session({
     secret: SESSION_SECRET,
     resave: false,
@@ -84,11 +87,17 @@ app.get('/auth/me', (req,res) => {
 })
 
 app.get('/auth/logout', (req, res) => {
-    console.log ("req is now ", req)
+    // console.log ("req is now ", req)
     req.logOut();
     res.redirect('http://localhost:3000/')
 })
 app.get('/findcolor', users_controller.getColor)
+app.get('/findmakes', users_controller.getMakes)
+app.get('/findmodels/:make', users_controller.getModelsByMake)
+app.post('/addwaitlist', users_controller.addWaitlist)
+
+
+app.get('/findyear', users_controller.getYears)
 
 
 app.listen(SERVER_PORT, () => console.log(`listening on port ${SERVER_PORT}`));

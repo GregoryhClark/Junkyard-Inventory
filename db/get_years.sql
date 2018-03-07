@@ -1,1 +1,1 @@
-select * from years;
+select * from year

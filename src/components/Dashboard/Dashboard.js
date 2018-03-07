@@ -1,44 +1,137 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { getUser, getColorArr } from './../../ducks/users';
+import { getUser, getColorArr, getMakeArr, getModelArr, getYearArr } from './../../ducks/users';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class Private extends Component {
+    constructor(){
+        super()
+        this.state = {
+            tempColor: '',
+            tempMake:'',
+            tempModel:'',
+            tempYear:''
+
+        }
+        this.addWaitlist = this.addWaitlist.bind(this)//wtf?
+    }
     componentDidMount() {
+
 
         this.props.getUser();
         //axios call to get given users preferences.
         //axios call to get the color, make, model, year, date options
-        
-            axios.get('/findcolor')
+
+        axios.get('/findcolor')
             .then(res => {
-                console.log('res.data is now',res.data)
+                console.log('color res.data is now', res.data)
                 this.props.getColorArr(res.data);
             })
-        
+
+        axios.get('/findmakes')
+            .then(res => {
+                console.log(' make res.data is now', res.data)
+                this.props.getMakeArr(res.data);
+            })
+
+        axios.get('/findyear')
+            .then(res => {
+                console.log('year res.data is now', res.data)
+                this.props.getYearArr(res.data);
+            })
+
     }
 
-    // displayWaitlistForm() { I changed this to make it simple. later, I may want to revisit this.
-    //     return (
-    //         <div>
-    //             <select name="" id="" className="new_waitlist">
-    //                 <option value="Honda"></option>
-    //                 <option value="Toyota"></option>
-    //                 <option value="GMC"></option>
-    //             </select>
+    getModels(selectedMake) {
+        // console.log(selectedMake)
+        this.setState({
+            tempMake:selectedMake
+        })
+        axios.get(`/findmodels/${selectedMake}`)
+            .then(res => {
+                console.log('New res.data is now', res.data)
+                this.props.getModelArr(res.data);
+               
 
-    //         </div>
-    //     )
-    // }
+                return (
+                    <div>
 
-    
+                    
+                    </div>
+                )
+            })
+
+
+    }
+    setTempModel(selectedModel){
+        this.setState({
+            tempModel:selectedModel
+        })
+    }
+    setTempColor(selectedColor){
+        this.setState({
+            tempColor:selectedColor
+        })
+        // console.log('now state is ', this.state)
+
+    }
+    setTempYear(selectedYear){
+        this.setState({
+            tempYear:selectedYear
+        })
+    }
+    addWaitlist(){
+        let carDetails = this.state;
+        carDetails.user_id = this.props.user.id;
+        console.log('carDetails on dash is now ',carDetails)
+        axios.post(`/addwaitlist`, carDetails)
+        .then()
+
+
+    }
 
     render() {
         const user = this.props.user;
         console.log("user is now ", user)
+        console.log("colorArr is now", this.props.colorArr)
 
-       
+
+        var makeSelection = this.props.makeArr.map((make, index) => {
+            return (
+
+                <option key={index}>{make.make}</option>
+            )
+        })
+        var colorSelection = this.props.colorArr.map((color, index) => {
+
+            return (
+
+                <option key={index}>{color.color}</option>
+            )
+        })
+
+        var yearSelection = this.props.yearArr.map((year, index) => {
+            return (
+
+                <option key={index}>{year.year}</option>
+            )
+        })
+        var modelSelection = this.props.modelArr.map((model, index) => {
+            console.log(modelSelection)
+
+            if (this.props.modelArr.length > 0) {
+                return (
+                    <option key={index}>{model.model}</option>
+                    
+                )
+            } else {
+                return (
+
+                    <option >Select Make First</option>
+                )
+            }
+        })
 
         return (
             <div>
@@ -70,45 +163,35 @@ class Private extends Component {
                     <h1>New Waitlist</h1>
                     <div className="new_make">
                         <p>Make:</p>
-                        <select name="" id="">
-                            <option value="">Honda</option>
-                            <option value="">Toyota</option>
-                            <option value="">Ford</option>
+                        <select onChange={(e) => this.getModels(e.target.value)}>
+                            <option>Select</option>
+                            {makeSelection}
                         </select>
-                    </div>
-                    <div className="new_make">
-                        <p>Model:</p>
-                        <select name="" id="">
-                            <option value="">Depends</option>
-                            <option value="">Depends</option>
-                            <option value="">Depends</option>
-                        </select>
-                    </div>
-                    <div className="new_make">
+                        {}
+                        <div className="new_model">
+                            <p>Model:</p>
+                            <select onChange={(e) => this.setTempModel(e.target.value)}>
+                                {modelSelection}
+                            </select>
+                        </div>
+                        <div className="new_year">
                         <p>Year:</p>
-                        <select name="" id="">
-                            <option value="">1998</option>
-                            <option value="">1999</option>
-                            <option value="">2000</option>
+                        <select onChange={(e) => this.setTempYear(e.target.value)}>
+                            <option>Select</option>
+                            {yearSelection}
                         </select>
                     </div>
-                    <div className="new_make">
+                    <div className="new_color">
                         <p>Color:</p>
-                        <select name="" id="">
-                            <option value="">Red</option>
-                            <option value="">Blue</option>
-                            <option value="">Green</option>
+                        <select onChange={(e) => this.setTempColor(e.target.value)}>
+                            <option>Select</option>
+                            {colorSelection}
                         </select>
                     </div>
-                    <div className="new_make">
-                        <p>Days on lot:</p>
-                        <select name="" id="">
-                            <option value="">10</option>
-                            <option value="">20</option>
-                            <option value="">30</option>
-                        </select>
+
+                        <button onClick = {this.addWaitlist}>Save</button>
                     </div>
-                    <button>Save</button>
+
 
                 </div>
 
@@ -120,11 +203,14 @@ class Private extends Component {
 
 }
 function mapStateToProps(state) {
-    const {user, colorArr} = state
+    const { user, colorArr, makeArr, modelArr, yearArr } = state
     return {
         user,
-        colorArr
+        colorArr,
+        makeArr,
+        modelArr,
+        yearArr,
     }
 }
 
-export default connect(mapStateToProps, { getUser, getColorArr })(Private)
+export default connect(mapStateToProps, { getUser, getColorArr, getMakeArr, getModelArr, getYearArr })(Private)
