@@ -95,6 +95,7 @@ app.get('/findcolor', users_controller.getColor)
 app.get('/findmakes', users_controller.getMakes)
 app.get('/findmodels/:make', users_controller.getModelsByMake)
 app.post('/addwaitlist', users_controller.addWaitlist)
+app.put('/profile', users_controller.updateProfile)
 
 
 app.get('/findyear', users_controller.getYears)

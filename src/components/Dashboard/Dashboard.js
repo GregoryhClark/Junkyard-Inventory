@@ -20,8 +20,6 @@ class Private extends Component {
 
 
         this.props.getUser();
-        //axios call to get given users preferences.
-        //axios call to get the color, make, model, year, date options
 
         axios.get('/findcolor')
             .then(res => {
@@ -86,7 +84,7 @@ class Private extends Component {
         carDetails.user_id = this.props.user.id;
         console.log('carDetails on dash is now ',carDetails)
         axios.post(`/addwaitlist`, carDetails)
-        .then()
+        .then()//You will need to put some schtuff here.
 
 
     }

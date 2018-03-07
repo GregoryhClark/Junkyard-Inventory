@@ -2,15 +2,31 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { getUser } from './../../ducks/users'
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class Private extends React.Component {
+    constructor(){
+        super()
+        this.state = {
+            tempName:'',
+            tempEmail: '',
+            tempCell: ''
+        }
+    }
+
+
     componentDidMount() {
 
         this.props.getUser();
     }
 
     updateUserInfo(){
-        this.props.user.email 
+        // this.props.user.email
+        let profileInfo = this.state;
+        profileInfo.user_id = this.props.user.id
+        // console.log('profile info is now', profileInfo, this.props.user)
+        axios.put('/profile', profileInfo)
+        .then()
     }
 
     render() {
@@ -21,20 +37,20 @@ class Private extends React.Component {
 
                 <div className="change_name">
                     <p>Name:</p>
-                    <input />
+                    <input onChange = {(e) => this.setState({tempName: e.target.value})} />
                 </div>
 
                 <div className="change_Email">
                     <p>Email:</p>
-                    <input />
+                    <input onChange = {(e) => this.setState({tempEmail: e.target.value})}/>
                 </div>
 
                 <div className="change_Phone">
                     <p>Cell Phone:</p>
-                    <input />
+                    <input onChange = {(e) => this.setState({tempCell: e.target.value})}/>
                 </div>
 
-                <button className="save_profile">Save</button>
+                <button className="save_profile" onClick={(e) => this.updateUserInfo()}>Save</button>
                 {/* This will need an OnClick that invokes a function to update appstate. */}
                
 
@@ -44,8 +60,9 @@ class Private extends React.Component {
 
 }
 function mapStateToProps(state) {
+    const {user} = state
     return {
-        user: state.user
+        user
     }
 }
 
