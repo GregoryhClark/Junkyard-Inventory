@@ -1,14 +1,14 @@
 
 module.exports = {
 
-    
+
 
     getColor: (req, res) => {
         const db = req.app.get('db');
         db.get_colors()
             .then((colors) => { res.status(200).send(colors) })
             .catch(() => res.status(500).send())
-    }, 
+    },
 
     getMakes: (req, res) => {
         const db = req.app.get('db');
@@ -20,8 +20,8 @@ module.exports = {
     getModelsByMake: (req, res) => {
         const db = req.app.get('db');
         db.get_by_make([req.params.make])
-        .then((model) => { res.status(200).send(model) })
-        .catch(() => res.status(500).send())
+            .then((model) => { res.status(200).send(model) })
+            .catch(() => res.status(500).send())
     },
 
     getYears: (req, res) => {
@@ -41,10 +41,22 @@ module.exports = {
     },
     updateProfile: (req, res) => {
         const db = req.app.get('db');
-        const {user_id, tempName, tempEmail, tempCell} = req.body;
-        console.log('req.body is now', req.body)
+        const { user_id, tempName, tempEmail, tempCell } = req.body;
         db.update_profile([tempName, tempEmail, tempCell, user_id])
-        .then((profile) => { res.status(200).send(profile) })
-        .catch(() => res.status(500).send())
+            .then((profile) => { res.status(200).send(profile) })
+            .catch(() => res.status(500).send())
+    },
+    getFiltered: (req, res) => {
+        const db = req.app.get('db');
+        //req.params here?
+        db.get_filtered_inventory([tempColor, tempMake, tempModel, tempYear])
+            .then((vehicles) => { res.status(200).send(vehicles) })
+            .catch(() => res.status(500).send())
+    },
+    getAllInventory: (req, res) => {
+        const db = req.app.get('db');
+        db.get_all_inventory()
+            .then((inventory) => { res.status(200).send(inventory) })
+            .catch(() => res.status(500).send())
     }
 }

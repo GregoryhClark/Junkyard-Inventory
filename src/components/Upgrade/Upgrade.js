@@ -13,9 +13,19 @@ class Private extends Component {
         const user = this.props.user;
         return (
             <div>
+                <Link to='/profile'>
+                    <button className='btn'>Edit Profile</button>
+                </Link>
+                <Link to='/dashboard'>
+                    <button className='btn'>Dashboard</button>
+                </Link>
+                <Link to='/upgrade'>
+                    <button className='btn'>Upgrade</button>
+                </Link>
+                <a href='http://localhost:3535/auth/logout'><button>Log out</button></a>
                 <p>Username: { user ? user.user_name : null }</p>
                 <h1>Upgrade to Premium for just 99 cents!</h1>
-                <p>Premium gets you immediate updates whenever a new vehicles is added to our inventory. With a basic account, notifications are sent out 24 hours after they are logged in our system.</p>
+                <p>Premium gets you immediate updates whenever a new vehicle is added to our inventory. With a basic account, notifications are sent out 24 hours after they are logged in our system.</p>
            
                 <Link to='/dashboard'>
                     <button className='btn'>Dashboard</button>

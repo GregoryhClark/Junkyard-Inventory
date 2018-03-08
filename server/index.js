@@ -97,8 +97,9 @@ app.get('/findmodels/:make', users_controller.getModelsByMake)
 app.post('/addwaitlist', users_controller.addWaitlist)
 app.put('/profile', users_controller.updateProfile)
 
-
+app.get('/inventory', users_controller.getFiltered)
 app.get('/findyear', users_controller.getYears)
+app.get('/allinventory', users_controller.getAllInventory)
 
 
 app.listen(SERVER_PORT, () => console.log(`listening on port ${SERVER_PORT}`));

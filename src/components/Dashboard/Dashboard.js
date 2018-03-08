@@ -23,19 +23,19 @@ class Private extends Component {
 
         axios.get('/findcolor')
             .then(res => {
-                console.log('color res.data is now', res.data)
+                // console.log('color res.data is now', res.data)
                 this.props.getColorArr(res.data);
             })
 
         axios.get('/findmakes')
             .then(res => {
-                console.log(' make res.data is now', res.data)
+                // console.log(' make res.data is now', res.data)
                 this.props.getMakeArr(res.data);
             })
 
         axios.get('/findyear')
             .then(res => {
-                console.log('year res.data is now', res.data)
+                // console.log('year res.data is now', res.data)
                 this.props.getYearArr(res.data);
             })
 
@@ -48,16 +48,16 @@ class Private extends Component {
         })
         axios.get(`/findmodels/${selectedMake}`)
             .then(res => {
-                console.log('New res.data is now', res.data)
+                // console.log('New res.data is now', res.data)
                 this.props.getModelArr(res.data);
                
 
-                return (
-                    <div>
+                // return (
+                //     <div>
 
                     
-                    </div>
-                )
+                //     </div>
+                // )
             })
 
 
@@ -146,6 +146,9 @@ class Private extends Component {
                 </Link>
                 <Link to='/upgrade'>
                     <button className='btn'>Upgrade</button>
+                </Link>
+                <Link to='/search'>
+                    <button className='btn'>Search</button>
                 </Link>
                 <a href='http://localhost:3535/auth/logout'><button>Log out</button></a>
                 <p>{user ? <img src={user.image_url} /> : null}</p>

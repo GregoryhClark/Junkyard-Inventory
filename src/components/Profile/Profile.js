@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class Private extends React.Component {
-    constructor(){
+    constructor() {
         super()
         this.state = {
-            tempName:'',
+            tempName: '',
             tempEmail: '',
             tempCell: ''
         }
@@ -20,39 +20,50 @@ class Private extends React.Component {
         this.props.getUser();
     }
 
-    updateUserInfo(){
+    updateUserInfo() {
         // this.props.user.email
         let profileInfo = this.state;
         profileInfo.user_id = this.props.user.id
         // console.log('profile info is now', profileInfo, this.props.user)
         axios.put('/profile', profileInfo)
-        .then()
+            .then()
     }
 
     render() {
         const user = this.props.user;
         return (
             <div>
+                <Link to='/profile'>
+                    <button className='btn'>Edit Profile</button>
+                </Link>
+                <Link to='/dashboard'>
+                    <button className='btn'>Dashboard</button>
+                </Link>
+                <Link to='/upgrade'>
+                    <button className='btn'>Upgrade</button>
+                </Link>
+                <a href='http://localhost:3535/auth/logout'><button>Log out</button></a>
+
                 <h1>Only you can change your profile. No one else.</h1>
 
                 <div className="change_name">
                     <p>Name:</p>
-                    <input onChange = {(e) => this.setState({tempName: e.target.value})} />
+                    <input onChange={(e) => this.setState({ tempName: e.target.value })} />
                 </div>
 
                 <div className="change_Email">
                     <p>Email:</p>
-                    <input onChange = {(e) => this.setState({tempEmail: e.target.value})}/>
+                    <input onChange={(e) => this.setState({ tempEmail: e.target.value })} />
                 </div>
 
                 <div className="change_Phone">
                     <p>Cell Phone:</p>
-                    <input onChange = {(e) => this.setState({tempCell: e.target.value})}/>
+                    <input onChange={(e) => this.setState({ tempCell: e.target.value })} />
                 </div>
 
                 <button className="save_profile" onClick={(e) => this.updateUserInfo()}>Save</button>
                 {/* This will need an OnClick that invokes a function to update appstate. */}
-               
+
 
             </div>
         )
@@ -60,10 +71,10 @@ class Private extends React.Component {
 
 }
 function mapStateToProps(state) {
-    const {user} = state
+    const { user } = state
     return {
         user
     }
 }
 
-export default connect(mapStateToProps, {getUser} )(Private)
+export default connect(mapStateToProps, { getUser })(Private)
