@@ -46,17 +46,29 @@ module.exports = {
             .then((profile) => { res.status(200).send(profile) })
             .catch(() => res.status(500).send())
     },
-    getFiltered: (req, res) => {
-        const db = req.app.get('db');
-        //req.params here?
-        db.get_filtered_inventory([tempColor, tempMake, tempModel, tempYear])
-            .then((vehicles) => { res.status(200).send(vehicles) })
-            .catch(() => res.status(500).send())
-    },
     getAllInventory: (req, res) => {
         const db = req.app.get('db');
         db.get_all_inventory()
             .then((inventory) => { res.status(200).send(inventory) })
             .catch(() => res.status(500).send())
+    },
+    getFiltered: (req, res) => {
+        const db = req.app.get('db');
+        db.get_filtered([req.params.make, req.params.model, req.params.year, req.params.color])
+            .then((car) => { res.status(200).send(car) })
+            .catch(() => res.status(500).send())
+    },
+    enterInventory:(req, res) => {
+        const db = req.app.get('db');
+        const { tempColor, tempMake, tempModel, tempYear } = req.body;
+        db.add_inventory([tempMake, tempModel, tempYear, tempColor])
+            .then((car) => { res.status(200).send(car) })
+            .catch(() => res.status(500).send())
+    },
+    deleteInventory: (req, res) =>{
+        const db = req.app.get('db');
+        db.delete_inventory([req.params.id])
+        .then((inventory) => { res.status(200).send(inventory) })
+        .catch(() => res.status(500).send())
     }
 }

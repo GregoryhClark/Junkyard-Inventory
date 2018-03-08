@@ -97,9 +97,11 @@ app.get('/findmodels/:make', users_controller.getModelsByMake)
 app.post('/addwaitlist', users_controller.addWaitlist)
 app.put('/profile', users_controller.updateProfile)
 
-app.get('/inventory', users_controller.getFiltered)
+app.get('/filteredinventory/:make/:model/:year/:color', users_controller.getFiltered)
 app.get('/findyear', users_controller.getYears)
 app.get('/allinventory', users_controller.getAllInventory)
+app.post('/enterinventory', users_controller.enterInventory)
+app.delete('/delete_inventory/:id', users_controller.deleteInventory)
 
 
 app.listen(SERVER_PORT, () => console.log(`listening on port ${SERVER_PORT}`));

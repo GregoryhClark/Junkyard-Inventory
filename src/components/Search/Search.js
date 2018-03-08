@@ -16,7 +16,7 @@ class Private extends Component {
             tempYear: ''
 
         }
-        this.searchInventory = this.searchInventory.bind(this)//wtf?
+        this.searchInventoryFiltered = this.searchInventoryFiltered.bind(this)//wtf?
         this.searchAllInventory = this.searchAllInventory.bind(this)//wtf?
     }
     componentDidMount() {
@@ -78,11 +78,19 @@ class Private extends Component {
         })
     }
 
-    searchInventory() {
+    searchInventoryFiltered() {
         let searchObj = this.state;
         console.log('searchObj is now ', searchObj)
-        axios.get('/inventory', searchObj)
-            .then()
+        axios.get(`/filteredinventory/${this.state.tempMake}/${this.state.tempModel}/${this.state.tempYear}/${this.state.tempColor}`)
+            .then(res => {
+                console.log('filtered res.data is finally', res.data)
+                this.setState({
+                    
+                    localInventory:res.data
+                })
+
+                console.log('filtered res.data is now', res.data)
+            })
     }
     searchAllInventory() {
         
@@ -92,7 +100,7 @@ class Private extends Component {
                     localInventory:res.data
                 })
 
-                console.log('res.data is now', res.data)
+                console.log('all inv res.data is now', res.data)
             })
 
     }
@@ -102,11 +110,12 @@ class Private extends Component {
     render() {
         var searchResults = this.state.localInventory.map((vehicle, index) => {
             return (
-                <tr>
+                <tr key = {index}>
                     <td>{vehicle.make}</td>
                     <td>{vehicle.model}</td>
                     <td>{vehicle.year}</td>
                     <td>{vehicle.color}</td>
+                    <td>{vehicle.date_entered}</td>
                 </tr>
         )})
         const user = this.props.user;
@@ -147,20 +156,37 @@ class Private extends Component {
         })
         return (
             <div>
+
+                <nav class="nav">
+
+<div class="nav-wrapper">
+
+    <div class="logo">
+        Logo here
+    </div>
+
+    <ul class="links">
+        <li class="link"><a href="/#/search"><div class="link">Search</div></a></li>
+        <li class="link"><a href="/#/upgrade"><div class="link">Upgrade</div></a></li>
+        <li class="link"><a href="/#/dashboard"><div class="link">Dashboard</div></a></li>
+        <li class="link"><a href="/#/profile"><div class="link">Edit Profile</div></a></li>
+        <li class="link"><a href="/#/inventory"><div class="link">Inventory</div></a></li>
+        <li class="link"><a href="http://localhost:3535/auth/logout"><div class="link">Logout</div></a></li>
+    </ul>
+
+    <div class="nav-mobile">
+        MENU <span>|||</span>
+    </div>
+
+</div>
+
+
+
+
+
+</nav>
                 <h1>Search our existing inventory to see if we have what you need!</h1>
 
-
-
-                <Link to='/profile'>
-                    <button className='btn'>Edit Profile</button>
-                </Link>
-                <Link to='/dashboard'>
-                    <button className='btn'>Dashboard</button>
-                </Link>
-                <Link to='/upgrade'>
-                    <button className='btn'>Upgrade</button>
-                </Link>
-                <a href='http://localhost:3535/auth/logout'><button>Log out</button></a>
 
                 <p>Username: {user ? user.user_name : null}</p>
 
@@ -179,6 +205,7 @@ class Private extends Component {
                             <th>Model</th>
                             <th>Year</th>
                             <th>Color</th>
+                            <th>Date Entered</th>
                         </tr>
                     </tbody>
                     <tbody>
@@ -236,7 +263,7 @@ class Private extends Component {
                         </select>
                     </div>
 
-                    <button onClick={this.searchInventory}>Save</button>
+                    <button onClick={this.searchInventoryFiltered}>Filter</button>
                 </div>
 
 

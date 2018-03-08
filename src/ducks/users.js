@@ -8,7 +8,8 @@ const initialState = {
     modelArr: [],
     yearArr: [],
     inventoryArr: [],
-    waitlistArr: []
+    waitlistArr: [],
+    todaysDate:'',
 }
 
 //action Types go here:
