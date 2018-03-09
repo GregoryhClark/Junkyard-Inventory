@@ -70,5 +70,12 @@ module.exports = {
         db.delete_inventory([req.params.id])
         .then((inventory) => { res.status(200).send(inventory) })
         .catch(() => res.status(500).send())
+    },
+    editInventory: (req, res) => {
+        const db = req.app.get('db');
+        const {} = req.body
+        db.edit_inventory([])
+        .then((inventory) => { res.status(200).send(inventory) })
+        .catch(() => res.status(500).send())
     }
 }

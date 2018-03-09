@@ -157,34 +157,7 @@ class Private extends Component {
         return (
             <div>
 
-                <nav class="nav">
 
-<div class="nav-wrapper">
-
-    <div class="logo">
-        Logo here
-    </div>
-
-    <ul class="links">
-        <li class="link"><a href="/#/search"><div class="link">Search</div></a></li>
-        <li class="link"><a href="/#/upgrade"><div class="link">Upgrade</div></a></li>
-        <li class="link"><a href="/#/dashboard"><div class="link">Dashboard</div></a></li>
-        <li class="link"><a href="/#/profile"><div class="link">Edit Profile</div></a></li>
-        <li class="link"><a href="/#/inventory"><div class="link">Inventory</div></a></li>
-        <li class="link"><a href="http://localhost:3535/auth/logout"><div class="link">Logout</div></a></li>
-    </ul>
-
-    <div class="nav-mobile">
-        MENU <span>|||</span>
-    </div>
-
-</div>
-
-
-
-
-
-</nav>
                 <h1>Search our existing inventory to see if we have what you need!</h1>
 
 

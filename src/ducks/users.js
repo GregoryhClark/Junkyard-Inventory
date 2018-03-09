@@ -2,14 +2,15 @@ import axios from 'axios';
 
 
 const initialState = {
-    user: {},
-    colorArr: [],
-    makeArr: [],
-    modelArr: [],
-    yearArr: [],
+    user: {},//
+    colorArr: [],//
+    makeArr: [],//
+    modelArr: [],//
+    yearArr: [],//
     inventoryArr: [],
     waitlistArr: [],
     todaysDate:'',
+    navbarSlide:false
 }
 
 //action Types go here:
