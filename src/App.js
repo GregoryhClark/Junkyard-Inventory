@@ -14,24 +14,24 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-       <nav class="nav">
+       <nav className="nav">
 
-<div class="nav-wrapper">
+<div className="nav-wrapper">
 
-    <div class="logo">
+    <div className="logo">
         Logo here
     </div>
 
-    <ul class="links">
-        <li class="link"><a href="/#/search"><div class="link">Search</div></a></li>
-        <li class="link"><a href="/#/upgrade"><div class="link">Upgrade</div></a></li>
-        <li class="link"><a href="/#/dashboard"><div class="link">Dashboard</div></a></li>
-        <li class="link"><a href="/#/profile"><div class="link">Edit Profile</div></a></li>
-        <li class="link"><a href="/#/inventory"><div class="link">Inventory</div></a></li>
-        <li class="link"><a href="http://localhost:3535/auth/logout"><div class="link">Logout</div></a></li>
+    <ul className="links">
+        <li className="link"><a href="/#/search"><div className="link">Search</div></a></li>
+        <li className="link"><a href="/#/upgrade"><div className="link">Upgrade</div></a></li>
+        <li className="link"><a href="/#/dashboard"><div className="link">Dashboard</div></a></li>
+        <li className="link"><a href="/#/profile"><div className="link">Edit Profile</div></a></li>
+        <li className="link"><a href="/#/inventory"><div className="link">Inventory</div></a></li>
+        <li className="link"><a href="http://localhost:3535/auth/logout"><div className="link">Logout</div></a></li>
     </ul>
 
-    <div class="nav-mobile">
+    <div className="nav-mobile">
         MENU <span>|||</span>
     </div>
 </div>

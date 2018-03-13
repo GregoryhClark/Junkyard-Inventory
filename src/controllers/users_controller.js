@@ -1,3 +1,10 @@
+require('dotenv').config();
+
+const nodemailer = require('nodemailer')
+const {
+    EMAIL_PASS,
+    EMAIL_USER
+} = process.env;
 
 module.exports = {
 
@@ -71,11 +78,60 @@ module.exports = {
         .then((inventory) => { res.status(200).send(inventory) })
         .catch(() => res.status(500).send())
     },
+    //THis needs to be finished... I stopped while working on it.
     editInventory: (req, res) => {
         const db = req.app.get('db');
         const {} = req.body
         db.edit_inventory([])
         .then((inventory) => { res.status(200).send(inventory) })
         .catch(() => res.status(500).send())
+    },
+    getWaitlist: (req, res) => {
+        const db = req.app.get('db');
+        db.get_waitlist([req.params.id])
+        .then((list) => { res.status(200).send(list) })
+        .catch(() => res.status(500).send())
+    },
+    notifyWaitlist: (req, res) => {
+        const db = req.app.get('db');
+        const { tempColor, tempMake, tempModel, tempYear } = req.body;
+        db.check_waitlists([tempMake, tempModel, tempYear, tempColor])
+            .then((users) => { res.status(200).send(users) })
+            .catch(() => res.status(500).send())
+
+
+
+
+
+        let transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true, // true for 465, false for other ports
+            auth: {
+                user: EMAIL_USER, // generated ethereal user
+                pass: EMAIL_PASS // generated ethereal password
+            }
+        });
+    
+        // setup email data with unicode symbols
+        let mailOptions = {
+            from: `"Test Greg" <${EMAIL_USER}>`, // sender address
+            to: 'gregoryhclark@gmail.com', // list of receivers
+            subject: 'Hello', // Subject line
+            text: 'Hello bitch?', // plain text body
+            html: '<b>Hello world body?</b>' // html body
+        };
+    
+        //send mail with defined transport object
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return console.log(error);
+            }
+            console.log('Message sent: %s', info.messageId);
+       
+            console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+    
+
+        });
     }
 }

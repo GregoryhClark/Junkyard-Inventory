@@ -9,6 +9,10 @@ const express = require('express')
 , massive = require('massive')
 , users_controller = require('../src/controllers/users_controller.js')
 , bodyParser = require('body-parser')//Dont forget this next time you fool!!!!
+, exphbs = require('express-handlebars')
+, nodemailer = require('nodemailer')
+
+
 
 const {
     SERVER_PORT,
@@ -17,7 +21,9 @@ const {
     CLIENT_ID,
     CLIENT_SECRET,
     CALLBACK_URL,
-    CONNECTION_STRING
+    CONNECTION_STRING,
+    EMAIL_PASS,
+    EMAIL_USER
 } = process.env;
 
 const app = express();
@@ -103,6 +109,14 @@ app.get('/allinventory', users_controller.getAllInventory)
 app.post('/enterinventory', users_controller.enterInventory)
 app.delete('/delete_inventory/:id', users_controller.deleteInventory)
 app.put('/edit_inventory/:id', users_controller.editInventory)
+app.get('/user_waitlist/:id' , users_controller.getWaitlist)
+
+app.post('/send_email', users_controller.notifyWaitlist)
+
+
+
+
+
 
 
 app.listen(SERVER_PORT, () => console.log(`listening on port ${SERVER_PORT}`));

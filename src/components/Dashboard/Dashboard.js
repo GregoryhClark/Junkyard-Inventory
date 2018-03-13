@@ -9,6 +9,7 @@ class Private extends Component {
     constructor() {
         super()
         this.state = {
+            localWaitlist: [],
             tempColor: '',
             tempMake: '',
             tempModel: '',
@@ -20,7 +21,16 @@ class Private extends Component {
     componentDidMount() {
 
 
-        this.props.getUser();
+        this.props.getUser().then(
+            console.log(this.props.user.id)
+            // axios.get(`/user_waitlist/${this.props.user.id}`)
+            // .then( res => {
+            //     console.log('localWaitlist is now' , res.data)
+            //     this.setState({
+            //         localWaitlist: res.data
+            //     })
+            // })
+        );
 
         axios.get('/findcolor')
             .then(res => {
@@ -39,6 +49,8 @@ class Private extends Component {
                 // console.log('year res.data is now', res.data)
                 this.props.getYearArr(res.data);
             })
+            console.log(this.props.user.id)
+
 
     }
 
@@ -92,8 +104,8 @@ class Private extends Component {
 
     render() {
         const user = this.props.user;
-        console.log("user is now ", user)
-        console.log("colorArr is now", this.props.colorArr)
+        // console.log("user is now ", user)
+        // console.log("colorArr is now", this.props.colorArr)
 
 
         var makeSelection = this.props.makeArr.map((make, index) => {
@@ -130,6 +142,22 @@ class Private extends Component {
                     <option >Select Make First</option>
                 )
             }
+        })
+        var userWaitlist = this.state.localWaitlist.map((vehicle, index) => {
+   
+            return (
+                <tr key={index}>
+                    <td>{vehicle.make} <select onChange={(e) => this.getModels(e.target.value)}><option>Select</option>{makeSelection}</select></td>
+                    <td>{vehicle.model}<select><option>Select</option>{modelSelection}</select></td>
+                    <td>{vehicle.year}<select><option>Select</option>{yearSelection}</select></td>
+                    <td>{vehicle.color}<select><option>Select</option>{colorSelection}</select></td>
+                    <td>{vehicle.date_entered}</td>
+                    <td>
+                        <button onClick={(e) => this.deleteInventory(vehicle.id)}>Delete</button>
+                        {/* <button onClick={(e) => this.deleteInventory(vehicle.id)}>Edit</button> */}
+                    </td>
+                </tr>
+            )
         })
 
         return (
@@ -181,6 +209,40 @@ class Private extends Component {
 
 
                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+            <table className="existing_waitlist">
+                    <tbody>
+                        <tr>
+                            <th>Make</th>
+                            <th>Model</th>
+                            <th>Year</th>
+                            <th>Color</th>
+                            <th>Date Entered</th>
+                            <th>Adjust</th>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        {userWaitlist}
+                    </tbody>
+                </table>
+
+
+
+
+
+
+
 
                 <div className="current_waitlist"></div>
 

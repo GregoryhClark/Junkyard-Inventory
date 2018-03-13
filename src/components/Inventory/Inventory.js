@@ -131,6 +131,10 @@ class Private extends Component {
 
                 console.log('filtered res.data is now', res.data)
             })
+        axios.post('/send_email', newCar)
+            .then(res => {
+                console.log('In theory, the email sent.')
+            })
     }
     searchAllInventory() {
 
