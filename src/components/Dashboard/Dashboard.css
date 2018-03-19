@@ -1,3 +1,163 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* ahahdlfkahs;efkha;woeifhjalioeaiowejngl;aiejg;aoierkfgnaiernken;lknj;aknjg;aorh;kenjloknglagr */
+.nav {
+  background-color: #111C26;
+  height: 70px;
+  padding: 0 85px;
+}
+
+.nav-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: inherit;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.nav-mobile {
+  display: none;
+  color: white;
+  position: relative;
+  background: #6A8FA6;
+  padding: 15px 20px;
+  border-radius: 5px;
+}
+@media (max-width: 1152px) {
+  .nav-mobile {
+    display: block;
+  }
+}
+.nav-mobile span {
+  position: absolute;
+  right: 3px;
+  top: 50%;
+  display: block;
+  -webkit-transform: translateY(-50%) rotate(90deg);
+          transform: translateY(-50%) rotate(90deg);
+}
+
+.logo_and_Name {
+  height: 50px;
+  color: #6A8FA6;
+  font-size: 20px;
+  font-family: 'Helvetica Neue',Helvetica,Arial,cursive;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  
+}
+.logo_and_Name img {
+  height: 100%;
+  margin-right: 9px;
+}
+.logo_image_wrapper{}
+
+.links {
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: #fff;
+  font-size: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+@media (max-width: 1152px) {
+  .links {
+    display: none;
+  }
+}
+
+.link {
+  margin-right: 30px;
+  cursor: pointer;
+  color: #F2F2F2;
+
+}
+.link a{
+  text-decoration: none;
+}
+.link:hover {
+  color: #6A8FA6;
+}
+.link:last-of-type {
+  margin-right: 0;
+}
+
+  
+  /* aajhskdfawieeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee */
+
+
+
+.dashboard_wrapper{
+  background-color: #0D0D0D;
+  height: 100vh;
+  color:#F2F2F2;
+}
+.dashboard_wrapper button{
+    border-radius: 7px;
+    background-color: #111C26;
+    color:#F2F2F2;
+}
 
 
 
@@ -9,14 +169,45 @@
 
 
 
+.waitlist_invisible{
+    display:none
+}
+.waitlist_visible{
+background-color: #465E73;
+border-radius: 10px;
+padding:8px;
+}
 
+.waitlist_visible th, tbody, tr{
+  padding:15px;
+}
+/* .waitlist_visible tr{
+  padding:15px;
+  margin:65px;
+} */
 
-.dash_pic {
+.dash_profile_wrapper{
+    height: 60px;
+    background-color: #0D0D0D;
+    display: flex;
+}
+
+.dash_profile_wrapper img {
     
     background-color: red;
 }
-.dash_pic img {
-    height: 60px;
-    border-width: 5px;
-    border-color: black;
+.dash_profile_wrapper p{
+    color: pink;
+}
+.the_ps{
+    display:flex;
+    flex-direction: column;
+}
+.the_ps p{
+    margin:5px;
+    color:#F2F2F2;
+    text-align: left;
+}
+.dash_pic img{
+    height:100%;
 }

@@ -3,34 +3,37 @@ import { connect } from 'react-redux';
 import { getUser, getColorArr, getMakeArr, getModelArr, getYearArr } from './../../ducks/users';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import logo from './Car_logo.png';
 import './Dashboard.css';
 
 class Private extends Component {
     constructor() {
         super()
         this.state = {
+            localUserID: -1,
             localWaitlist: [],
             tempColor: '',
             tempMake: '',
             tempModel: '',
-            tempYear: ''
+            tempYear: '',
+            waitlistVisible: false,
+            waitlistClassName: 'waitlist_invisible',
+            userIsAdmin:false
 
         }
         this.addWaitlist = this.addWaitlist.bind(this)//wtf?
+        this.AdjustWaitlistVisibility = this.AdjustWaitlistVisibility.bind(this)
     }
     componentDidMount() {
 
-
-        this.props.getUser().then(
-            console.log(this.props.user.id)
-            // axios.get(`/user_waitlist/${this.props.user.id}`)
-            // .then( res => {
-            //     console.log('localWaitlist is now' , res.data)
-            //     this.setState({
-            //         localWaitlist: res.data
-            //     })
-            // })
-        );
+        this.props.getUser()
+            .then((res) => {
+                console.log('here it is!',res.value)
+                this.setState({
+                    localUserID: res.value.id,
+                    userIsAdmin:res.value.is_admin
+                })
+            })
 
         axios.get('/findcolor')
             .then(res => {
@@ -49,10 +52,13 @@ class Private extends Component {
                 // console.log('year res.data is now', res.data)
                 this.props.getYearArr(res.data);
             })
-            console.log(this.props.user.id)
+
+        console.log(this.props.user)
+
 
 
     }
+
 
     getModels(selectedMake) {
         // console.log(selectedMake)
@@ -92,14 +98,73 @@ class Private extends Component {
             tempYear: selectedYear
         })
     }
+
+
+
+    // updateWaitlist() {
+    //     const user = this.props.user
+    //     axios.get(`/user_waitlist/${user.id}`).then(res => {
+
+    //         this.setState({
+    //             localWaitlist: res.data
+    //         })
+    //     })
+    // }
+
+
+
+
     addWaitlist() {
         let carDetails = this.state;
         carDetails.user_id = this.props.user.id;
         console.log('carDetails on dash is now ', carDetails)
+
         axios.post(`/addwaitlist`, carDetails)
-            .then()//You will need to put some schtuff here.
+            .then(res => {
+
+                this.setState({
+                    waitlistVisible: false,
+                    localWaitlist: res.data
+                })
+            }
+            )//You will need to put some schtuff here.
 
 
+
+
+
+
+
+
+
+    }
+    AdjustWaitlistVisibility() {
+        const user = this.props.user
+        axios.get(`/user_waitlist/${user.id}`).then(res => {
+            console.log(res.data)
+            this.setState({
+                localWaitlist: res.data
+            })
+            if (this.state.waitlistVisible) {
+                this.setState({
+                    waitlistVisible: false,
+                    waitlistClassName: 'waitlist_invisible'
+                });
+            } else if (!this.state.waitlistVisible) {
+                this.setState({
+                    waitlistVisible: true,
+                    waitlistClassName: 'waitlist_visible'
+                })
+            };
+
+            // console.log('I did it', this.state.waitlistVisible, this.state.waitlistClassName)
+        }
+        )
+    }
+    deleteWaitlist(id) {
+        console.log('the id to delete is ', id)
+        axios.delete(`/delete_waitlist/${id}`)
+            .then(this.AdjustWaitlistVisibility())
     }
 
     render() {
@@ -107,6 +172,11 @@ class Private extends Component {
         // console.log("user is now ", user)
         // console.log("colorArr is now", this.props.colorArr)
 
+        var waitlistButtonText = () => {
+            if (!this.state.waitlistVisible) {
+                return 'View Waitlist'
+            } else { return 'Close Waitlist' }
+        }
 
         var makeSelection = this.props.makeArr.map((make, index) => {
             return (
@@ -144,16 +214,22 @@ class Private extends Component {
             }
         })
         var userWaitlist = this.state.localWaitlist.map((vehicle, index) => {
-   
+            console.log(this.state.localWaitlist)
             return (
+
                 <tr key={index}>
-                    <td>{vehicle.make} <select onChange={(e) => this.getModels(e.target.value)}><option>Select</option>{makeSelection}</select></td>
+                    {/* I can add the edit functionality later if needed */}
+                    {/* <td>{vehicle.make} <select onChange={(e) => this.getModels(e.target.value)}><option>Select</option>{makeSelection}</select></td>
                     <td>{vehicle.model}<select><option>Select</option>{modelSelection}</select></td>
                     <td>{vehicle.year}<select><option>Select</option>{yearSelection}</select></td>
-                    <td>{vehicle.color}<select><option>Select</option>{colorSelection}</select></td>
-                    <td>{vehicle.date_entered}</td>
+                    <td>{vehicle.color}<select><option>Select</option>{colorSelection}</select></td> */}
+                    <td>{vehicle.make}</td>
+                    <td>{vehicle.model}</td>
+                    <td>{vehicle.year}</td>
+                    <td>{vehicle.color}</td>
+
                     <td>
-                        <button onClick={(e) => this.deleteInventory(vehicle.id)}>Delete</button>
+                        <button onClick={(e) => this.deleteWaitlist(vehicle.id)}>Delete</button>
                         {/* <button onClick={(e) => this.deleteInventory(vehicle.id)}>Edit</button> */}
                     </td>
                 </tr>
@@ -161,17 +237,72 @@ class Private extends Component {
         })
 
         return (
-            <div>
-               
-                <h1>Only you can see this. No one else.</h1>
+            <div className = 'dashboard_wrapper'>
+                <nav className="nav">
 
-                <div className = "dash_pic">{user ? <img src={user.image_url} /> : null}</div>
-                <p>Username: {user ? user.user_name : null}</p>
-                <p>Email: {user ? user.email : null}</p>
+                    <div className="nav-wrapper">
 
-                <p>ID: {user ? user.auth_id : null}</p>
+                        <div className="logo_and_Name">
+                        
+                            <img src={logo}alt="logo"/>
+                            </div>
+                            <p>Pic-Ur-Junk</p>
+                            <div></div>
+
+                        <ul className="links">
+                            <li className="link"><a href="/#/search"><div className="link">Search</div></a></li>
+                            
+                            <li className="link"><a href="/#/dashboard"><div className="link">Dashboard</div></a></li>
+                            <li className="link"><a href="/#/profile"><div className="link">Edit Profile</div></a></li>
+                            {this.state.userIsAdmin ? 
+                                <li className="link"><a href="/#/inventory"><div className="link">Inventory</div></a></li> : <li className="link"><a href="/#/upgrade"><div className="link">Upgrade</div></a></li>
+                                }
+                               
+                            <li className="link"><a href="http://localhost:3535/auth/logout"><div className="link">Logout</div></a></li>
+                        </ul>
+
+                        <div className="nav-mobile">
+                            MENU <span>|||</span>
+                        </div>
+                    </div>
+                </nav>
+
+                <div className="dash_profile_wrapper">
+                    <div className="dash_pic">
+                        {user ? <img src={user.image_url} alt='user profile' /> : null}
+                    </div>
+                    <div className='the_ps'>
+                        <p className='p1'>{user ? user.user_name : null}</p>
+                        <p className='p2'>{user ? user.email : null}</p>
+                    </div>
+                </div>
+
 
                 {/* <h1>{console.log('the log in the jsx is ',this.props.colorArr)}</h1> */}
+
+
+
+                <div className="waitlist_wrapper">
+
+                    <button onClick={this.AdjustWaitlistVisibility}>{waitlistButtonText()}</button>
+                    <table className={this.state.waitlistClassName}>
+                        <tbody>
+                            <tr>
+                                <th>Make</th>
+                                <th>Model</th>
+                                <th>Year</th>
+                                <th>Color</th>
+                                <th>Adjust</th>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            {userWaitlist}
+                        </tbody>
+                    </table>
+
+                </div>
+
+
 
 
                 <div className="new_waitlist">
@@ -212,39 +343,7 @@ class Private extends Component {
 
 
 
-
-
-
-
-
-
-
-
-
-            <table className="existing_waitlist">
-                    <tbody>
-                        <tr>
-                            <th>Make</th>
-                            <th>Model</th>
-                            <th>Year</th>
-                            <th>Color</th>
-                            <th>Date Entered</th>
-                            <th>Adjust</th>
-                        </tr>
-                    </tbody>
-                    <tbody>
-                        {userWaitlist}
-                    </tbody>
-                </table>
-
-
-
-
-
-
-
-
-                <div className="current_waitlist"></div>
+                {/* <div className="current_waitlist"></div> */}
 
             </div>
         )

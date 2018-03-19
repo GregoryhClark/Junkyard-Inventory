@@ -33,10 +33,31 @@ class Private extends React.Component {
         const user = this.props.user;
         return (
             <div>
+                <nav className="nav">
 
-                
+                    <div className="nav-wrapper">
 
-                <h1>Only you can change your profile. No one else.</h1>
+                        <div className="logo">
+                            Logo here
+    </div>
+
+                        <ul className="links">
+                            <li className="link"><a href="/#/search"><div className="link">Search</div></a></li>
+                            <li className="link"><a href="/#/upgrade"><div className="link">Upgrade</div></a></li>
+                            <li className="link"><a href="/#/dashboard"><div className="link">Dashboard</div></a></li>
+                            <li className="link"><a href="/#/profile"><div className="link">Edit Profile</div></a></li>
+                            <li className="link"><a href="/#/inventory"><div className="link">Inventory</div></a></li>
+                            <li className="link"><a href="http://localhost:3535/auth/logout"><div className="link">Logout</div></a></li>
+                        </ul>
+
+                        <div className="nav-mobile">
+                            MENU <span>|||</span>
+                        </div>
+                    </div>
+                </nav>
+
+
+
 
                 <div className="change_name">
                     <p>Name:</p>

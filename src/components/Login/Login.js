@@ -4,14 +4,16 @@ import './Login.css';
 export default class Login extends Component {
     render() {
         return (
-            <div className='login'>  
-                <div className="logo_wrapper">
-                <img className="car_logo"src={logo} alt="carlogo"/>
+            <div className='login_page'>
+                <div className="login_box">
+                    <div className="logo_wrapper">
+                        <img className="car_logo" src={logo} alt="carlogo" />
+                    </div>
+                    <a className="login_btn" href={process.env.REACT_APP_LOGIN}>
+                        <button>Login</button>
+                    </a>
                 </div>
-                <a className = "login_btn" href={ process.env.REACT_APP_LOGIN }>
-                    <button>Login</button>
-                </a>
-            </div> 
+            </div>
         )
     }
 }

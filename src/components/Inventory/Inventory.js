@@ -57,22 +57,22 @@ class Private extends Component {
                     localInventory: res.data
                 })
 
-                console.log('all inv res.data is now', res.data)
+                // console.log('all inv res.data is now', res.data)
             })
 
 
     }
     searchInventoryFiltered() {
-        
+
         axios.get(`/filteredinventory/${this.state.filteredMake}/${this.state.filteredModel}/${this.state.filteredYear}/${this.state.filteredColor}`)
             .then(res => {
-                console.log('filtered res.data is finally', res.data)
+                // console.log('filtered res.data is finally', res.data)
                 this.setState({
-                    
-                    localInventory:res.data
+
+                    localInventory: res.data
                 })
 
-                console.log('filtered res.data is now', res.data)
+                // console.log('filtered res.data is now', res.data)
             })
     }
 
@@ -84,7 +84,7 @@ class Private extends Component {
         })
         axios.get(`/findmodels/${selectedMake}`)
             .then(res => {
-                console.log('New res.data is now', res.data)
+                // console.log('New res.data is now', res.data)
                 this.props.getModelArr(res.data);
             })
     }
@@ -120,20 +120,20 @@ class Private extends Component {
 
     enterInventory() {
         let newCar = this.state;
-        console.log('newCar is now ', newCar)
+        // console.log('newCar is now ', newCar)
         axios.post(`/enterinventory`, newCar)
             .then(res => {
-                console.log('enterinv res.data is finally', res.data)
+                // console.log('enterinv res.data is finally', res.data)
                 this.setState({
 
                     localInventory: res.data
                 })
 
-                console.log('filtered res.data is now', res.data)
+                // console.log('filtered res.data is now', res.data)
             })
         axios.post('/send_email', newCar)
             .then(res => {
-                console.log('In theory, the email sent.')
+                // console.log('In theory, the email sent.')
             })
     }
     searchAllInventory() {
@@ -144,14 +144,14 @@ class Private extends Component {
                     localInventory: res.data
                 })
 
-                console.log('all inv res.data is now', res.data)
+                // console.log('all inv res.data is now', res.data)
             })
 
     }
     deleteInventory(id) {
         console.log('the id to delete is ', id)
         axios.delete(`/delete_inventory/${id}`)
-            .then()//I should really put schtuff here.
+            .then(this.searchAllInventory())//I should really put schtuff here.
     }
     editInventory() {
 
@@ -236,13 +236,18 @@ class Private extends Component {
         var searchResults = this.state.localInventory.map((vehicle, index) => {
             // console.log(vehicle)
             // console.log(makeSelection)
+            function shortenDate(fullDate){
+                var shortDate = fullDate.substring(0,10)
+                return shortDate;
+            }
             return (
+
                 <tr key={index}>
-                    <td>{vehicle.make} <select onChange={(e) => this.getModels(e.target.value)}><option>Select</option>{makeSelection}</select></td>
-                    <td>{vehicle.model}<select><option>Select</option>{modelSelection}</select></td>
-                    <td>{vehicle.year}<select><option>Select</option>{yearSelection}</select></td>
-                    <td>{vehicle.color}<select><option>Select</option>{colorSelection}</select></td>
-                    <td>{vehicle.date_entered}</td>
+                    <td>{vehicle.make}</td>
+                    <td>{vehicle.model}</td>
+                    <td>{vehicle.year}</td>
+                    <td>{vehicle.color}</td>
+                    <td>{shortenDate(vehicle.date_entered)}</td>
                     <td>
                         <button onClick={(e) => this.deleteInventory(vehicle.id)}>Delete</button>
                         <button onClick={(e) => this.deleteInventory(vehicle.id)}>Edit</button>
@@ -252,17 +257,38 @@ class Private extends Component {
         })
         return (
             <div>
+                <nav className="nav">
 
+                    <div className="nav-wrapper">
+
+                        <div className="logo">
+                            Logo here
+    </div>
+
+                        <ul className="links">
+                            <li className="link"><a href="/#/search"><div className="link">Search</div></a></li>
+                            <li className="link"><a href="/#/upgrade"><div className="link">Upgrade</div></a></li>
+                            <li className="link"><a href="/#/dashboard"><div className="link">Dashboard</div></a></li>
+                            <li className="link"><a href="/#/profile"><div className="link">Edit Profile</div></a></li>
+                            <li className="link"><a href="/#/inventory"><div className="link">Inventory</div></a></li>
+                            <li className="link"><a href="http://localhost:3535/auth/logout"><div className="link">Logout</div></a></li>
+                        </ul>
+
+                        <div className="nav-mobile">
+                            MENU <span>|||</span>
+                        </div>
+                    </div>
+                </nav>
                 <h1>Manage Invetory Here</h1>
 
                 <p>Username: {user ? user.user_name : null}</p>
 
-                <div className="new_waitlist">
+                {/* <div className="new_waitlist">
 
 
-                </div>
+                </div> */}
                 <div className="inv_button_wrapper">
-                    
+
                     <div>
                         {/* <button onClick={}>Search Filtered</button> */}
                     </div>
@@ -274,95 +300,102 @@ class Private extends Component {
                     </div>
                 </div>
 
-                <table className="search_results">
-                    <tbody>
-                        <tr>
-                            <th>Make</th>
-                            <th>Model</th>
-                            <th>Year</th>
-                            <th>Color</th>
-                            <th>Date Entered</th>
-                            <th>Adjust</th>
-                        </tr>
-                    </tbody>
-                    <tbody>
-                        {searchResults}
-                    </tbody>
-                </table>
+                <div className = 'inventory_body_wrapper'>
 
-
-
-                <div className='search_results'>
-
+                <div className="search_results_wrapper">
+                    <table className="search_results">
+                        <tbody>
+                            <tr>
+                                <th>Make</th>
+                                <th>Model</th>
+                                <th>Year</th>
+                                <th>Color</th>
+                                <th>Date Entered</th>
+                                <th>Adjust</th>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            {searchResults}
+                        </tbody>
+                    </table>
                 </div>
 
-                <h1>Enter New Vehicle</h1>
-                <div className="new_make">
-                    <p>Make:</p>
-                    <select onChange={(e) => this.getModels(e.target.value)}>
-                        <option>Select</option>
-                        {makeSelection}
-                    </select>
-                    
-                    <div className="new_model">
-                        <p>Model:</p>
-                        <select onChange={(e) => this.setTempModel(e.target.value)}>
-                            {modelSelection}
-                        </select>
-                    </div>
-                    <div className="new_year">
-                        <p>Year:</p>
-                        <select onChange={(e) => this.setTempYear(e.target.value)}>
-                            <option>Select</option>
-                            {yearSelection}
-                        </select>
-                    </div>
-                    <div className="new_color">
-                        <p>Color:</p>
-                        <select onChange={(e) => this.setTempColor(e.target.value)}>
-                            <option>Select</option>
-                            {colorSelection}
-                        </select>
-                    </div>
 
-                    <button onClick={this.enterInventory}>Save Entry</button>
+
+
+                {/* <div className='search_results'>
+
+                </div> */}
+
+                <div className="new_entry_form">
+                    <h1 className='new_waitlist_title'>Enter New Vehicle</h1>
+                    <div className="new_make">
+                        <p>Make:</p>
+                        <select onChange={(e) => this.getModels(e.target.value)}>
+                            <option>Select</option>
+                            {makeSelection}
+                        </select>
+
+                        <div className="new_model">
+                            <p>Model:</p>
+                            <select onChange={(e) => this.setTempModel(e.target.value)}>
+                                {modelSelection}
+                            </select>
+                        </div>
+                        <div className="new_year">
+                            <p>Year:</p>
+                            <select onChange={(e) => this.setTempYear(e.target.value)}>
+                                <option>Select</option>
+                                {yearSelection}
+                            </select>
+                        </div>
+                        <div className="new_color">
+                            <p>Color:</p>
+                            <select onChange={(e) => this.setTempColor(e.target.value)}>
+                                <option>Select</option>
+                                {colorSelection}
+                            </select>
+                        </div>
+
+                        <button onClick={this.enterInventory}>Save Entry</button>
+                    </div>
                 </div>
 
                 <div className="search_form">
-                <h1>Filtered search fields</h1>
-                <div className="new_make">
-                    <p>Make:</p>
-                    <select onChange={(e) => this.getModels(e.target.value)}>
-                        <option>Select</option>
-                        {makeSelection}
-                    </select>
-                    
-                    <div className="new_model">
-                        <p>Model:</p>
-                        <select onChange={(e) => this.setTempModel(e.target.value)}>
-                            {modelSelection}
-                        </select>
-                    </div>
-                    <div className="new_year">
-                        <p>Year:</p>
-                        <select onChange={(e) => this.setTempYear(e.target.value)}>
+                    <h1>Filtered search fields</h1>
+                    <div className="new_make">
+                        <p>Make:</p>
+                        <select onChange={(e) => this.getModels(e.target.value)}>
                             <option>Select</option>
-                            {yearSelection}
+                            {makeSelection}
                         </select>
+
+                        <div className="new_model">
+                            <p>Model:</p>
+                            <select onChange={(e) => this.setTempModel(e.target.value)}>
+                                {modelSelection}
+                            </select>
+                        </div>
+                        <div className="new_year">
+                            <p>Year:</p>
+                            <select onChange={(e) => this.setTempYear(e.target.value)}>
+                                <option>Select</option>
+                                {yearSelection}
+                            </select>
+                        </div>
+                        <div className="new_color">
+                            <p>Color:</p>
+                            <select onChange={(e) => this.setTempColor(e.target.value)}>
+                                <option>Select</option>
+                                {colorSelection}
+                            </select>
+                        </div>
+
+                        <button onClick={this.searchInventoryFiltered}>Filter</button>
                     </div>
-                    <div className="new_color">
-                        <p>Color:</p>
-                        <select onChange={(e) => this.setTempColor(e.target.value)}>
-                            <option>Select</option>
-                            {colorSelection}
-                        </select>
-                    </div>
-
-                    <button onClick={this.searchInventoryFiltered}>Filter</button>
-                </div>
                 </div>
 
-
+                </div>
             </div >
 
 

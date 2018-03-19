@@ -8,34 +8,15 @@ import Upgrade from './components/Upgrade/Upgrade';
 import Inventory from './components/Inventory/Inventory';
 import Search from './components/Search/Search';
 import TestComp from './components/TestComp/TestComp';
+
+
 import './App.css';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-       <nav className="nav">
 
-<div className="nav-wrapper">
-
-    <div className="logo">
-        Logo here
-    </div>
-
-    <ul className="links">
-        <li className="link"><a href="/#/search"><div className="link">Search</div></a></li>
-        <li className="link"><a href="/#/upgrade"><div className="link">Upgrade</div></a></li>
-        <li className="link"><a href="/#/dashboard"><div className="link">Dashboard</div></a></li>
-        <li className="link"><a href="/#/profile"><div className="link">Edit Profile</div></a></li>
-        <li className="link"><a href="/#/inventory"><div className="link">Inventory</div></a></li>
-        <li className="link"><a href="http://localhost:3535/auth/logout"><div className="link">Logout</div></a></li>
-    </ul>
-
-    <div className="nav-mobile">
-        MENU <span>|||</span>
-    </div>
-</div>
-</nav>
 
         <HashRouter>
           <Switch>

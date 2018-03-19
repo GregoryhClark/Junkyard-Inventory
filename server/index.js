@@ -112,6 +112,7 @@ app.put('/edit_inventory/:id', users_controller.editInventory)
 app.get('/user_waitlist/:id' , users_controller.getWaitlist)
 
 app.post('/send_email', users_controller.notifyWaitlist)
+app.delete('/delete_waitlist/:id', users_controller.deleteWaitlist)
 
 
 

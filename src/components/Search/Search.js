@@ -109,13 +109,17 @@ class Private extends Component {
 
     render() {
         var searchResults = this.state.localInventory.map((vehicle, index) => {
+            function shortenDate(fullDate){
+                var shortDate = fullDate.substring(0,10)
+                return shortDate;
+            }
             return (
                 <tr key = {index}>
                     <td>{vehicle.make}</td>
                     <td>{vehicle.model}</td>
                     <td>{vehicle.year}</td>
                     <td>{vehicle.color}</td>
-                    <td>{vehicle.date_entered}</td>
+                    <td>{shortenDate(vehicle.date_entered)}</td>
                 </tr>
         )})
         const user = this.props.user;
@@ -157,7 +161,28 @@ class Private extends Component {
         return (
             <div>
 
+       <nav className="nav">
 
+<div className="nav-wrapper">
+
+    <div className="logo">
+        Logo here
+    </div>
+
+    <ul className="links">
+        <li className="link"><a href="/#/search"><div className="link">Search</div></a></li>
+        <li className="link"><a href="/#/upgrade"><div className="link">Upgrade</div></a></li>
+        <li className="link"><a href="/#/dashboard"><div className="link">Dashboard</div></a></li>
+        <li className="link"><a href="/#/profile"><div className="link">Edit Profile</div></a></li>
+        <li className="link"><a href="/#/inventory"><div className="link">Inventory</div></a></li>
+        <li className="link"><a href="http://localhost:3535/auth/logout"><div className="link">Logout</div></a></li>
+    </ul>
+
+    <div className="nav-mobile">
+        MENU <span>|||</span>
+    </div>
+</div>
+</nav>
                 <h1>Search our existing inventory to see if we have what you need!</h1>
 
 
