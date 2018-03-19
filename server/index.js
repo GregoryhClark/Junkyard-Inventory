@@ -11,7 +11,8 @@ const express = require('express')
 , bodyParser = require('body-parser')//Dont forget this next time you fool!!!!
 , exphbs = require('express-handlebars')
 , nodemailer = require('nodemailer')
-
+, cors = require('cors')
+, stripe = require('stripe')(process.env.REACT_APP_STRIPE_KEY)//WTF????
 
 
 const {
@@ -30,6 +31,7 @@ const app = express();
 massive(CONNECTION_STRING).then(db => {
     app.set('db' ,db);
 })
+app.use(cors());
 app.use(bodyParser.json())
 app.use(session({
     secret: SESSION_SECRET,
@@ -115,6 +117,19 @@ app.post('/send_email', users_controller.notifyWaitlist)
 app.delete('/delete_waitlist/:id', users_controller.deleteWaitlist)
 
 
+app.post('/api/payment', function(req, res, next){
+
+    const charge = stripe.charges.create({
+        amount: '99',
+        currency: 'usd',
+        source: req.body.token.id,
+        description: 'Test Premium Upgrade'
+    }, function(err, charge){
+        if (err) return res.sendStatus(500)
+        return res.sendStatus(200);
+    })
+
+})
 
 
 

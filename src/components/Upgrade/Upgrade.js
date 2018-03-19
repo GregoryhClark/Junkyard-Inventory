@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { getUser } from './../../ducks/users';
 import { Link } from 'react-router-dom';
 import { Elements } from 'react-stripe-elements';
+import StripeCheckout from 'react-stripe-checkout';
+import axios from 'axios';
 // import InjectedCheckoutForm from './CheckoutForm';
 
 class Private extends Component {
@@ -11,6 +13,14 @@ class Private extends Component {
         this.props.getUser();
     }
 
+    onToken(token){
+        token.card = void 0;
+    console.log('token', token);
+    axios.post('http://localhost:3535/api/payment', { token, amount: 100 } ).then(response => {
+      alert('we are in business')
+      console.log(response)
+    });
+    }
     render() {
         const user = this.props.user;
         return (
@@ -51,7 +61,7 @@ class Private extends Component {
 
 
 
-                <script src="https://js.stripe.com/v3/"></script>
+               
                 <div className="checkout_form">
                     {/* //WTF??? */}
                     {/* <form action="your-server-side-code" method="POST">
@@ -67,14 +77,18 @@ class Private extends Component {
                         </script>
                     </form> */}
 
-                    <Elements>
-                        {/* <InjectedCheckoutForm /> */}
-                    </Elements>
+                    {/* // <Elements>
+                    //     <InjectedCheckoutForm />
+                    // </Elements> */}
 
 
 
                 </div>
 
+                    <StripeCheckout 
+                        token={this.onToken}
+                        stripeKey='pk_test_uFE6zSqGKm4S9QEMIg47DAPr'
+                        amount={0.99}/>
 
 
 

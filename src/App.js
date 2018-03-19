@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {HashRouter, Route, Switch} from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 //Import each component here
 import Login from './components/Login/Login'
 import Dashboard from './components/Dashboard/Dashboard';
@@ -17,18 +17,21 @@ class App extends Component {
     return (
       <div className="App">
 
+        
 
+      
         <HashRouter>
           <Switch>
-            <Route exact path = '/' component = {Login} />
-            <Route path = '/dashboard' component = {Dashboard} />
-            <Route path = '/profile' component = {Profile} />
-            <Route path = '/upgrade' component = {Upgrade} />
-            <Route path = '/testcomp' component = {TestComp} />
-            <Route path = '/search' component = {Search} />
-            <Route path = '/inventory' component = {Inventory} />
+            <Route exact path='/' component={Login} />
+            <Route path='/dashboard' component={Dashboard} />
+            <Route path='/profile' component={Profile} />
+            <Route path='/upgrade' component={Upgrade} />
+            <Route path='/testcomp' component={TestComp} />
+            <Route path='/search' component={Search} />
+            <Route path='/inventory' component={Inventory} />
           </Switch>
-          </HashRouter>
+        </HashRouter>
+
       </div>
     );
   }
