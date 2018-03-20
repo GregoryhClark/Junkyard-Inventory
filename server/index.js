@@ -117,19 +117,7 @@ app.post('/send_email', users_controller.notifyWaitlist)
 app.delete('/delete_waitlist/:id', users_controller.deleteWaitlist)
 
 
-app.post('/api/payment', function(req, res, next){
-
-    const charge = stripe.charges.create({
-        amount: '99',
-        currency: 'usd',
-        source: req.body.token.id,
-        description: 'Test Premium Upgrade'
-    }, function(err, charge){
-        if (err) return res.sendStatus(500)
-        return res.sendStatus(200);
-    })
-
-})
+app.post('/api/payment/:id', users_controller.upgradeUser)
 
 
 

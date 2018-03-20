@@ -1,4 +1,4 @@
-select users.id, users.user_name, email from users 
+select users.id, users.user_name, email, is_premium from users 
 join waitlist on waitlist.user_id = users.id 
 join make on make.id = waitlist.make
 join model on model.id = waitlist.model

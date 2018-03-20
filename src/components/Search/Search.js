@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getUser, getColorArr, getMakeArr, getModelArr, getYearArr } from './../../ducks/users';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import './Search.css';
 
 
 class Private extends Component {

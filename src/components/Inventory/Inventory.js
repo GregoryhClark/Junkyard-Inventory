@@ -250,7 +250,7 @@ class Private extends Component {
                     <td>{shortenDate(vehicle.date_entered)}</td>
                     <td>
                         <button onClick={(e) => this.deleteInventory(vehicle.id)}>Delete</button>
-                        <button onClick={(e) => this.deleteInventory(vehicle.id)}>Edit</button>
+                        <button >Edit</button>
                     </td>
                 </tr>
             )

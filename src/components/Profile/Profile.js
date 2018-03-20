@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getUser } from './../../ducks/users'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import './Profile.css';
 
 class Private extends React.Component {
     constructor() {
