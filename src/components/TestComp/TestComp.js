@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 // import { getUser } from './../../ducks/users';
 import {Link} from 'react-router-dom';
+import './TestComp.css'
 
 export default class TestComp extends Component {
     showSettings (event) {
@@ -12,13 +13,8 @@ export default class TestComp extends Component {
     render () {
         return (
             <div>
-                <h1>testing</h1>
-          <Menu>
-            <a id="home" className="menu-item" href="/">Home</a>
-            <a id="about" className="menu-item" href="/about">About</a>
-            <a id="contact" className="menu-item" href="/contact">Contact</a>
-            <a onClick={ this.showSettings } className="menu-item--small" href="">Settings</a>
-          </Menu>
+                <h1 className = "testSchtuffMan">testiadhasdgasdfasdfasdfadasdfasdfasdfasdfasdfasdfasdfng</h1>
+      
 
           </div>
         );

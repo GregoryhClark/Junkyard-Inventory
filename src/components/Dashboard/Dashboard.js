@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { getUser, getColorArr, getMakeArr, getModelArr, getYearArr } from './../../ducks/users';
-import { Link } from 'react-router-dom';
+import { Link, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
 import logo from './Car_logo.png';
 import './Dashboard.css';
+import TestComp from '../TestComp/TestComp'
+import Profile from '../Profile/Profile';
+import MyWaitlist from '../MyWaitlist/MyWaitlist';
+import NewWaitlist from '../NewWaitlist/NewWaitlist';
 
 class Private extends Component {
     constructor() {
@@ -19,12 +23,14 @@ class Private extends Component {
             waitlistVisible: false,
             waitlistClassName: 'waitlist_invisible',
             userIsAdmin: false,
-            userIsPremium: false
+            userIsPremium: false,
+            viewingWaitlist: false
 
 
         }
         this.addWaitlist = this.addWaitlist.bind(this)//wtf?
-        this.AdjustWaitlistVisibility = this.AdjustWaitlistVisibility.bind(this)
+        this.AdjustWaitlistVisibility = this.AdjustWaitlistVisibility.bind(this);
+        this.testRouteRender = this.testRouteRender.bind(this);
     }
     componentDidMount() {
 
@@ -72,13 +78,6 @@ class Private extends Component {
                 // console.log('New res.data is now', res.data)
                 this.props.getModelArr(res.data);
 
-
-                // return (
-                //     <div>
-
-
-                //     </div>
-                // )
             })
 
 
@@ -88,7 +87,7 @@ class Private extends Component {
             tempModel: selectedModel
         })
     }
-    
+
     setTempColor(selectedColor) {
         this.setState({
             tempColor: selectedColor
@@ -101,20 +100,6 @@ class Private extends Component {
             tempYear: selectedYear
         })
     }
-
-
-
-    // updateWaitlist() {
-    //     const user = this.props.user
-    //     axios.get(`/user_waitlist/${user.id}`).then(res => {
-
-    //         this.setState({
-    //             localWaitlist: res.data
-    //         })
-    //     })
-    // }
-
-
 
 
     addWaitlist() {
@@ -176,7 +161,20 @@ class Private extends Component {
         } else {
             x.className = "topnav";
         }
-    } 
+    }
+    testRouteRender() {
+        console.log(this.state.viewingWaitlist)
+        !this.state.viewingWaitlist ?
+            this.setState({
+                viewingWaitlist: true
+            })
+            :
+            this.setState({
+                viewingWaitlist: false
+            })
+            ;
+        console.log(this.state.viewingWaitlist)
+    }
     render() {
         const user = this.props.user;
         // console.log("user is now ", user)
@@ -248,7 +246,7 @@ class Private extends Component {
 
         return (
             <div className='dashboard_wrapper'>
-               
+
                 <div className="topnav" id="myTopnav">
                     <a href="/#/dashboard" className="active">Dashboard</a>
                     <a href="/#/search">Search</a>
@@ -264,7 +262,12 @@ class Private extends Component {
                     <a href="javascript:void(0);" className="icon" onClick={this.myFunction}>&#9776;</a>
                 </div>
 
+                <div className="dash_nav">
+                    <a href = "/#/dashboard/my_waitlist">My Waitlists</a>
+                    <a href="/#/dashboard/new_waitlist">New Waitlist</a>
+                </div>
 
+                
 
                 <div className="dash_profile_wrapper">
                     <div className="dash_pic">
@@ -276,12 +279,15 @@ class Private extends Component {
                     </div>
                 </div>
 
+                <Switch>
+                    <Route  path='/dashboard/test' component = {TestComp}/>
+                    <Route path='/dashboard/my_waitlist' component = {MyWaitlist}/>
+                    <Route  path='/dashboard/new_waitlist' component = {NewWaitlist}/>
+                </Switch>
 
-                {/* <h1>{console.log('the log in the jsx is ',this.props.colorArr)}</h1> */}
 
 
-
-                <div className="waitlist_wrapper">
+                {/* <div className="waitlist_wrapper">
 
                     <button onClick={this.AdjustWaitlistVisibility}>{waitlistButtonText()}</button>
                     <table className={this.state.waitlistClassName}>
@@ -299,12 +305,12 @@ class Private extends Component {
                         </tbody>
                     </table>
 
-                </div>
+                </div> */}
 
 
 
 
-                <div className="new_waitlist">
+                {/* <div className="new_waitlist">
                     <h1>New Waitlist</h1>
                     <div className="new_make">
                         <p>Make:</p>
@@ -338,7 +344,7 @@ class Private extends Component {
                     </div>
 
 
-                </div>
+                </div> */}
 
 
 
