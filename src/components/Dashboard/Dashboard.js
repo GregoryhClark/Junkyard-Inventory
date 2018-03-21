@@ -18,7 +18,9 @@ class Private extends Component {
             tempYear: '',
             waitlistVisible: false,
             waitlistClassName: 'waitlist_invisible',
-            userIsAdmin:false
+            userIsAdmin: false,
+            userIsPremium: false
+
 
         }
         this.addWaitlist = this.addWaitlist.bind(this)//wtf?
@@ -28,10 +30,10 @@ class Private extends Component {
 
         this.props.getUser()
             .then((res) => {
-                console.log('here it is!',res.value)
+                console.log('here it is!', res.value)
                 this.setState({
                     localUserID: res.value.id,
-                    userIsAdmin:res.value.is_admin
+                    userIsAdmin: res.value.is_admin
                 })
             })
 
@@ -86,6 +88,7 @@ class Private extends Component {
             tempModel: selectedModel
         })
     }
+    
     setTempColor(selectedColor) {
         this.setState({
             tempColor: selectedColor
@@ -166,7 +169,14 @@ class Private extends Component {
         axios.delete(`/delete_waitlist/${id}`)
             .then(this.AdjustWaitlistVisibility())
     }
-
+    myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    } 
     render() {
         const user = this.props.user;
         // console.log("user is now ", user)
@@ -237,35 +247,24 @@ class Private extends Component {
         })
 
         return (
-            <div className = 'dashboard_wrapper'>
-                <nav className="nav">
+            <div className='dashboard_wrapper'>
+               
+                <div className="topnav" id="myTopnav">
+                    <a href="/#/dashboard" className="active">Dashboard</a>
+                    <a href="/#/search">Search</a>
+                    {this.state.userIsAdmin ?
+                        <a href="/#/inventory">Inventory</a> : null
+                    }
+                    {this.state.userIsPremium ? null :
+                        <a href="/#/upgrade" >Upgrade</a>}
 
-                    <div className="nav-wrapper">
 
-                        <div className="logo_and_Name">
-                        
-                            <img src={logo}alt="logo"/>
-                            </div>
-                            <p>Pic-Ur-Junk</p>
-                            <div></div>
+                    <a href="/#/profile">Profile</a>
+                    <a href="http://localhost:3535/auth/logout">Logout</a>
+                    <a href="javascript:void(0);" className="icon" onClick={this.myFunction}>&#9776;</a>
+                </div>
 
-                        <ul className="links">
-                            <li className="link"><a href="/#/search"><div className="link">Search</div></a></li>
-                            
-                            <li className="link"><a href="/#/dashboard"><div className="link">Dashboard</div></a></li>
-                            <li className="link"><a href="/#/profile"><div className="link">Edit Profile</div></a></li>
-                            {this.state.userIsAdmin ? 
-                                <li className="link"><a href="/#/inventory"><div className="link">Inventory</div></a></li> : <li className="link"><a href="/#/upgrade"><div className="link">Upgrade</div></a></li>
-                                }
-                               
-                            <li className="link"><a href="http://localhost:3535/auth/logout"><div className="link">Logout</div></a></li>
-                        </ul>
 
-                        <div className="nav-mobile">
-                            MENU <span>|||</span>
-                        </div>
-                    </div>
-                </nav>
 
                 <div className="dash_profile_wrapper">
                     <div className="dash_pic">

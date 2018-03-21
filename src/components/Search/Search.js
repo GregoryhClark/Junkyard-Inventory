@@ -14,7 +14,9 @@ class Private extends Component {
             tempColor: '',
             tempMake: '',
             tempModel: '',
-            tempYear: ''
+            tempYear: '',
+            userIsAdmin:false,
+            userIsPremium:false
 
         }
         this.searchInventoryFiltered = this.searchInventoryFiltered.bind(this)//wtf?
@@ -22,7 +24,15 @@ class Private extends Component {
     }
     componentDidMount() {
 
-        this.props.getUser();
+        this.props.getUser()
+            .then((res) => {
+                console.log('here it is!',res.value)
+                this.setState({
+                    localUserID: res.value.id,
+                    userIsAdmin:res.value.is_admin,
+                    userIsPremium:res.value.is_premium
+                })
+            })
 
         axios.get('/findcolor')
             .then(res => {
@@ -106,10 +116,20 @@ class Private extends Component {
 
     }
 
-
+    myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    } 
 
     render() {
-        var searchResults = this.state.localInventory.map((vehicle, index) => {
+
+        var searchResults = this.state.localInventory.length > 0 ?
+
+        this.state.localInventory.map((vehicle, index) => {
             function shortenDate(fullDate){
                 var shortDate = fullDate.substring(0,10)
                 return shortDate;
@@ -123,6 +143,9 @@ class Private extends Component {
                     <td>{shortenDate(vehicle.date_entered)}</td>
                 </tr>
         )})
+        : "Oops, it looks like we don't have any of those."
+
+
         const user = this.props.user;
         var makeSelection = this.props.makeArr.map((make, index) => {
             return (
@@ -161,38 +184,27 @@ class Private extends Component {
         })
         return (
             <div>
-
-       <nav className="nav">
-
-<div className="nav-wrapper">
-
-    <div className="logo">
-        Logo here
-    </div>
-
-    <ul className="links">
-        <li className="link"><a href="/#/search"><div className="link">Search</div></a></li>
-        <li className="link"><a href="/#/upgrade"><div className="link">Upgrade</div></a></li>
-        <li className="link"><a href="/#/dashboard"><div className="link">Dashboard</div></a></li>
-        <li className="link"><a href="/#/profile"><div className="link">Edit Profile</div></a></li>
-        <li className="link"><a href="/#/inventory"><div className="link">Inventory</div></a></li>
-        <li className="link"><a href="http://localhost:3535/auth/logout"><div className="link">Logout</div></a></li>
-    </ul>
-
-    <div className="nav-mobile">
-        MENU <span>|||</span>
-    </div>
-</div>
-</nav>
+            <div className="topnav" id="myTopnav">
+                    <a href="/#/dashboard" >Dashboard</a>
+                    <a href="/#/search" className="active">Search</a>
+                    {this.state.userIsAdmin ?
+                    <a href="/#/inventory">Inventory</a> : null
+                    }
+                    {this.state.userIsPremium ? null:
+                    <a href="/#/upgrade" >Upgrade</a> }
+                    
+                    
+                    <a href="/#/profile">Profile</a>
+                    <a href="http://localhost:3535/auth/logout">Logout</a>
+                    <a href="javascript:void(0);" className="icon" onClick={this.myFunction}>&#9776;</a>
+                </div>
+    
                 <h1>Search our existing inventory to see if we have what you need!</h1>
 
 
                 <p>Username: {user ? user.user_name : null}</p>
 
-                <div className="new_waitlist">
 
-
-                </div>
                 <div>
                     <button onClick={this.searchAllInventory}>Search All</button>
                 </div>

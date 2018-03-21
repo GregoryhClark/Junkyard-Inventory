@@ -48,100 +48,6 @@ table {
 }
 
 /* ahahdlfkahs;efkha;woeifhjalioeaiowejngl;aiejg;aoierkfgnaiernken;lknj;aknjg;aorh;kenjloknglagr */
-.nav {
-  background-color: #111C26;
-  height: 70px;
-  padding: 0 85px;
-}
-
-.nav-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  height: inherit;
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.nav-mobile {
-  display: none;
-  color: white;
-  position: relative;
-  background: #6A8FA6;
-  padding: 15px 20px;
-  border-radius: 5px;
-}
-@media (max-width: 1152px) {
-  .nav-mobile {
-    display: block;
-  }
-}
-.nav-mobile span {
-  position: absolute;
-  right: 3px;
-  top: 50%;
-  display: block;
-  -webkit-transform: translateY(-50%) rotate(90deg);
-          transform: translateY(-50%) rotate(90deg);
-}
-
-.logo_and_Name {
-  height: 50px;
-  color: #6A8FA6;
-  font-size: 20px;
-  font-family: 'Helvetica Neue',Helvetica,Arial,cursive;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  
-}
-.logo_and_Name img {
-  height: 100%;
-  margin-right: 9px;
-}
-.logo_image_wrapper{}
-
-.links {
-  list-style: none;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  color: #fff;
-  font-size: 20px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-@media (max-width: 1152px) {
-  .links {
-    display: none;
-  }
-}
-
-.link {
-  margin-right: 30px;
-  cursor: pointer;
-  color: #F2F2F2;
-
-}
-.link a{
-  text-decoration: none;
-}
-.link:hover {
-  color: #6A8FA6;
-}
-.link:last-of-type {
-  margin-right: 0;
-}
 
   
   /* aajhskdfawieeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee */
@@ -153,19 +59,11 @@ table {
   height: 100vh;
   color:#F2F2F2;
 }
-.dashboard_wrapper button{
+button{
     border-radius: 7px;
     background-color: #111C26;
     color:#F2F2F2;
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -210,4 +108,18 @@ padding:8px;
 }
 .dash_pic img{
     height:100%;
+}
+
+
+
+
+.new_waitlist{
+  background-color: #465E73;
+  border-radius: 10px;
+  padding:15px;
+}
+
+select{
+  background-color: #111C26;
+  color:#F2F2F2;
 }

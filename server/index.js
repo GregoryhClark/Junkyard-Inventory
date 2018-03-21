@@ -110,17 +110,13 @@ app.get('/findyear', users_controller.getYears)
 app.get('/allinventory', users_controller.getAllInventory)
 app.post('/enterinventory', users_controller.enterInventory)
 app.delete('/delete_inventory/:id', users_controller.deleteInventory)
-app.put('/edit_inventory/:id', users_controller.editInventory)
+app.put('/edit_inventory/', users_controller.editInventory)
 app.get('/user_waitlist/:id' , users_controller.getWaitlist)
 
 app.post('/send_email', users_controller.notifyWaitlist)
 app.delete('/delete_waitlist/:id', users_controller.deleteWaitlist)
 
-
 app.post('/api/payment/:id', users_controller.upgradeUser)
 
-
-
-
-
 app.listen(SERVER_PORT, () => console.log(`listening on port ${SERVER_PORT}`));
+

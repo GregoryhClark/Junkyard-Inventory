@@ -106,8 +106,8 @@ module.exports = {
     //THis needs to be finished... I stopped while working on it.
     editInventory: (req, res) => {
         const db = req.app.get('db');
-        const { } = req.body
-        db.edit_inventory([])
+        const {make, model, year, color, id } = req.body
+        db.edit_inventory([make, model, year, color, id])
             .then((inventory) => { res.status(200).send(inventory) })
             .catch(() => res.status(500).send())
     },
