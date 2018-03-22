@@ -4,7 +4,7 @@ import { getUser, getColorArr, getMakeArr, getModelArr, getYearArr } from './../
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Inventory.css';
-
+const {REACT_APP_LOGOUT} = process.env
 
 class Private extends Component {
     constructor() {
@@ -144,7 +144,7 @@ class Private extends Component {
                     // console.log('filtered res.data is now', res.data)
                 })
             axios.post('/send_email', newCar)
-            .then(this.searchAllInventory)
+                .then(this.searchAllInventory)
         } else {
             alert('You must select all values.')
         }
@@ -320,7 +320,11 @@ class Private extends Component {
             )
         })
         return (
+
+
             <div>
+          
+                
                 <div className="topnav" id="myTopnav">
                     <a href="/#/dashboard" >Dashboard</a>
                     <a href="/#/search">Search</a>
@@ -332,7 +336,7 @@ class Private extends Component {
 
 
                     <a href="/#/profile">Profile</a>
-                    <a href="http://localhost:3535/auth/logout">Logout</a>
+                    <a href={REACT_APP_LOGOUT}>Logout</a>
                     <a href="javascript:void(0);" className="icon" onClick={this.myFunction}>&#9776;</a>
                 </div>
                 <h1>Manage Invetory Here</h1>
@@ -417,7 +421,7 @@ class Private extends Component {
                             <div className="new_model">
                                 <p>Model:</p>
                                 <select onChange={(e) => this.setTempModel(e.target.value)}>
-                                <option>Select</option>
+                                    <option>Select</option>
                                     {modelSelection}
                                 </select>
                             </div>

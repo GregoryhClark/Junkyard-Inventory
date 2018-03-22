@@ -4,7 +4,7 @@ import { getUser } from './../../ducks/users'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Profile.css';
-
+const {REACT_APP_LOGOUT} = process.env
 class Private extends React.Component {
     constructor() {
         super()
@@ -71,7 +71,7 @@ class Private extends React.Component {
                     
                     
                     <a href="/#/profile" className="active">Profile</a>
-                    <a href="http://localhost:3535/auth/logout">Logout</a>
+                    <a href={REACT_APP_LOGOUT}>Logout</a>
                     <a href="javascript:void(0);" className="icon" onClick={this.myFunction}>&#9776;</a>
                 </div>
 

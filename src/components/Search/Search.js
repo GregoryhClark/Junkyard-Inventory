@@ -4,7 +4,7 @@ import { getUser, getColorArr, getMakeArr, getModelArr, getYearArr } from './../
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Search.css';
-
+const {REACT_APP_LOGOUT} = process.env
 
 class Private extends Component {
     constructor() {
@@ -227,7 +227,7 @@ class Private extends Component {
 
 
                     <a href="/#/profile">Profile</a>
-                    <a href="http://localhost:3535/auth/logout">Logout</a>
+                    <a href={REACT_APP_LOGOUT}>Logout</a>
                     <a href="javascript:void(0);" className="icon" onClick={this.myFunction}>&#9776;</a>
                 </div>
                 <h1>Filter Here</h1>

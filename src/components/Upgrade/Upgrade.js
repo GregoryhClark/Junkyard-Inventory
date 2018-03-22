@@ -7,7 +7,7 @@ import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
 import './Upgrade.css';
 // import InjectedCheckoutForm from './CheckoutForm';
-
+const {REACT_APP_LOGOUT, REACT_APP_PAYMENT_REQ} = process.env
 class Private extends Component {
     constructor() {
         super()
@@ -42,7 +42,8 @@ class Private extends Component {
         console.log(user)
         token.card = void 0;
         console.log('token', token);
-        axios.post(`http://localhost:3535/api/payment/${user.id}`, { token, amount: 100 }).then(response => {
+        //Hey, this might be what's broken.
+        axios.post(`${REACT_APP_PAYMENT_REQ}${user.id}`, { token, amount: 100 }).then(response => {
             alert(`We are in business user ${user.id}`)
             console.log(response)
         });
@@ -74,7 +75,7 @@ class Private extends Component {
 
 
                     <a href="/#/profile">Profile</a>
-                    <a href="http://localhost:3535/auth/logout">Logout</a>
+                    <a href={REACT_APP_LOGOUT}>Logout</a>
                     <a href="javascript:void(0);" className="icon" onClick={this.myFunction}>&#9776;</a>
                 </div>
 
