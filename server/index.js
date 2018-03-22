@@ -25,9 +25,9 @@ const {
     CONNECTION_STRING,
     EMAIL_PASS,
     EMAIL_USER,
-    REACT_APP_LOGIN_FAIL,
+    LOGOUT,
     REACT_APP_LOGIN_SUCCESS,
-    REACT_APP_LOGOUT
+    REACT_APP_LOGIN_FAIL
 } = process.env;
 
 const app = express();
@@ -35,8 +35,6 @@ massive(CONNECTION_STRING).then(db => {
     app.set('db' ,db);
 })
 app.use(cors());
-
-app.use(express.static( `${__dirname}/../build` ))
 app.use(bodyParser.json())
 app.use(session({
     secret: SESSION_SECRET,
@@ -87,8 +85,8 @@ passport.deserializeUser((id, done)=> {
 
 app.get('/auth', passport.authenticate('auth0'));
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect:REACT_APP_LOGIN_FAIL,
-    failureRedirect: REACT_APP_LOGIN_SUCCESS
+    successRedirect: REACT_APP_LOGIN_SUCCESS,
+    failureRedirect: REACT_APP_LOGIN_FAIL
 } ))
 
 app.get('/auth/me', (req,res) => {
@@ -102,7 +100,7 @@ app.get('/auth/me', (req,res) => {
 app.get('/auth/logout', (req, res) => {
     // console.log ("req is now ", req)
     req.logOut();
-    res.redirect(REACT_APP_LOGOUT)
+    res.redirect(LOGOUT)
 })
 app.get('/findcolor', users_controller.getColor)
 app.get('/findmakes', users_controller.getMakes)
