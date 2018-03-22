@@ -24,7 +24,10 @@ const {
     CALLBACK_URL,
     CONNECTION_STRING,
     EMAIL_PASS,
-    EMAIL_USER
+    EMAIL_USER,
+    REACT_APP_LOGIN_FAIL,
+    REACT_APP_LOGIN_SUCCESS,
+    REACT_APP_LOGOUT
 } = process.env;
 
 const app = express();
@@ -84,8 +87,8 @@ passport.deserializeUser((id, done)=> {
 
 app.get('/auth', passport.authenticate('auth0'));
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect:'http://localhost:3000/#/dashboard',
-    failureRedirect: 'http://localhost:3000/'
+    successRedirect:REACT_APP_LOGIN_FAIL,
+    failureRedirect: REACT_APP_LOGIN_SUCCESS
 } ))
 
 app.get('/auth/me', (req,res) => {
@@ -99,7 +102,7 @@ app.get('/auth/me', (req,res) => {
 app.get('/auth/logout', (req, res) => {
     // console.log ("req is now ", req)
     req.logOut();
-    res.redirect('http://localhost:3000/')
+    res.redirect(REACT_APP_LOGOUT)
 })
 app.get('/findcolor', users_controller.getColor)
 app.get('/findmakes', users_controller.getMakes)
