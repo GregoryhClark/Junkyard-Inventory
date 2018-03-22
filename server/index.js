@@ -35,6 +35,7 @@ massive(CONNECTION_STRING).then(db => {
     app.set('db' ,db);
 })
 app.use(cors());
+app.use(express.static(__dirname+'/../build'));
 app.use(bodyParser.json())
 app.use(session({
     secret: SESSION_SECRET,
