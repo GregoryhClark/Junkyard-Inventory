@@ -64,7 +64,7 @@ class Private extends Component {
 
 
                     <a href="/#/profile">Profile</a>
-                    <a href='http://localhost:3535/auth/logout'>Logout</a>
+                    <a href={REACT_APP_LOGOUT}>Logout</a>
                     <a href="javascript:void(0);" className="icon" onClick={this.myFunction}>&#9776;</a>
                 </div>
 
