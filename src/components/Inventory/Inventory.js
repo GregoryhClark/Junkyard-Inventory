@@ -24,7 +24,8 @@ class Private extends Component {
             userIsPremium: false,
             isEditing: false,
             editingIndex: -1,
-           
+            filterClicked: false
+
 
 
         }
@@ -73,21 +74,28 @@ class Private extends Component {
 
                 // console.log('all inv res.data is now', res.data)
             })
-
-
     }
     searchInventoryFiltered() {
+        // if()
 
-        axios.get(`/filteredinventory/${this.state.filteredMake}/${this.state.filteredModel}/${this.state.filteredYear}/${this.state.filteredColor}`)
-            .then(res => {
-                // console.log('filtered res.data is finally', res.data)
-                this.setState({
+        let searchObj = this.state;
+        let { tempMake, tempColor, tempModel, tempYear } = this.state;
+        if (tempMake && tempColor && tempModel && tempYear) {
 
-                    localInventory: res.data
+            axios.get(`/filteredinventory/${tempMake}/${tempModel}/${tempYear}/${tempColor}`)
+                .then(res => {
+                    console.log('filtered res.data is finally', res.data)
+                    this.setState({
+
+                        localInventory: res.data,
+                        filterClicked: true
+                    })
+
+                    console.log('filtered res.data is now', res.data)
                 })
-
-                // console.log('filtered res.data is now', res.data)
-            })
+        } else {
+            alert('You must select all values.')
+        }
     }
 
 
@@ -124,20 +132,22 @@ class Private extends Component {
     enterInventory() {
         let newCar = this.state;
         // console.log('newCar is now ', newCar)
-        axios.post(`/enterinventory`, newCar)
-            .then(res => {
-                // console.log('enterinv res.data is finally', res.data)
-                this.setState({
+        if (newCar.tempColor && newCar.tempMake && newCar.tempModel && newCar.tempYear) {
+            axios.post(`/enterinventory`, newCar)
+                .then(res => {
+                    // console.log('enterinv res.data is finally', res.data)
+                    this.setState({
 
-                    localInventory: res.data
+                        localInventory: res.data
+                    })
+
+                    // console.log('filtered res.data is now', res.data)
                 })
-
-                // console.log('filtered res.data is now', res.data)
-            })
-        axios.post('/send_email', newCar)
-            .then(res => {
-                // console.log('In theory, the email sent.')
-            })
+            axios.post('/send_email', newCar)
+            .then(this.searchAllInventory)
+        } else {
+            alert('You must select all values.')
+        }
     }
     searchAllInventory() {
 
@@ -145,8 +155,8 @@ class Private extends Component {
             .then(res => {
                 this.setState({
                     localInventory: res.data,
-                    isEditing:false,
-                    editingIndex:-1
+                    isEditing: false,
+                    editingIndex: -1
                 })
 
                 // console.log('all inv res.data is now', res.data)
@@ -159,16 +169,26 @@ class Private extends Component {
             .then(this.searchAllInventory)
     }
     editInventory(vehicleID) {
+
+
         var editObj = {
-            make:this.state.tempMake,
-            model:this.state.tempModel,
-            year:this.state.tempYear,
-            color:this.state.tempColor,
-            id:vehicleID
+            make: this.state.tempMake,
+            model: this.state.tempModel,
+            year: this.state.tempYear,
+            color: this.state.tempColor,
+            id: vehicleID
         }
-        axios.put(`/edit_inventory`, editObj)
-            .then(this.searchAllInventory)//I should really put schtuff here.
+        if (this.state.tempColor && this.state.tempMake && this.state.tempModel && this.state.tempYear) {
+            axios.put(`/edit_inventory`, editObj)
+                .then(this.searchAllInventory)//I should really put schtuff here.
+
+        }
+        else {
+            alert('You must select all values.')
+        }
     }
+
+
     displayCorrectModelSchtuff() {
         if (this.props.modelArr.length < 1) {
             return (
@@ -197,8 +217,8 @@ class Private extends Component {
             isEditing: true
         })
         console.log(this.state.isEditing, this.state.editingIndex)
-        
-        
+
+
 
     }
 
@@ -226,8 +246,24 @@ class Private extends Component {
                 <option key={index}>{year.year}</option>
             )
         })
-    
+
         var modelSelection = this.displayCorrectModelSchtuff();
+
+        var searchResultHeaders = this.state.localInventory.length ?
+
+            <tr>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Color</th>
+                <th>Date Entered</th>
+            </tr>
+            : this.state.filterClicked ? <div>
+                <p>Oops, it looks like we don't have any of those. <Link to="/dashboard/new_waitlist">Click here</Link> to add to your waitlist.
+            </p>
+            </div>
+                : null;
+
         var searchResults = this.state.localInventory.map((vehicle, index) => {
             // console.log(vehicle)
             // console.log(makeSelection)
@@ -281,19 +317,6 @@ class Private extends Component {
                     </tr>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
             )
         })
         return (
@@ -314,38 +337,60 @@ class Private extends Component {
                 </div>
                 <h1>Manage Invetory Here</h1>
 
-                <p>Username: {user ? user.user_name : null}</p>
+                <div className="search_bar">
+
+                    <div className="new_make">
+                        <p>Make:</p>
+                        <select onChange={(e) => this.getModels(e.target.value)}>
+                            <option>Select</option>
+                            {makeSelection}
+                        </select>
+                    </div>
+                    <div className="new_model">
+                        <p>Model:</p>
+                        <select onChange={(e) => this.setTempModel(e.target.value)}>
+                            <option>Select</option>
+                            {modelSelection}
+                        </select>
+                    </div>
+                    <div className="new_year">
+                        <p>Year:</p>
+                        <select onChange={(e) => this.setTempYear(e.target.value)}>
+                            <option>Select</option>
+                            {yearSelection}
+                        </select>
+                    </div>
+                    <div className="new_color">
+                        <p>Color:</p>
+                        <select onChange={(e) => this.setTempColor(e.target.value)}>
+                            <option>Select</option>
+                            {colorSelection}
+                        </select>
+                    </div>
+
+                    <button onClick={this.searchInventoryFiltered}>Filter</button>
+
+
+                    <button onClick={this.searchAllInventory}>Clear Filters</button>
+
+
+                </div>
+
+
+
 
                 {/* <div className="new_waitlist">
 
 
                 </div> */}
-                <div className="inv_button_wrapper">
 
-                    <div>
-                        {/* <button onClick={}>Search Filtered</button> */}
-                    </div>
-                    <div>
-                        {/* <button onClick={}>Add New</button> */}
-                    </div>
-                    <div>
-                        <button onClick={this.searchAllInventory}>Clear Filters</button>
-                    </div>
-                </div>
 
                 <div className='inventory_body_wrapper'>
 
                     <div className="search_results_wrapper">
                         <table className="search_results">
                             <tbody>
-                                <tr>
-                                    <th>Make</th>
-                                    <th>Model</th>
-                                    <th>Year</th>
-                                    <th>Color</th>
-                                    <th>Date Entered</th>
-                                    <th>Adjust</th>
-                                </tr>
+                                {searchResultHeaders}
                             </tbody>
                             <tbody>
                                 {searchResults}
@@ -372,6 +417,7 @@ class Private extends Component {
                             <div className="new_model">
                                 <p>Model:</p>
                                 <select onChange={(e) => this.setTempModel(e.target.value)}>
+                                <option>Select</option>
                                     {modelSelection}
                                 </select>
                             </div>
@@ -394,7 +440,7 @@ class Private extends Component {
                         </div>
                     </div>
 
-                    <div className="search_form">
+                    {/* <div className="search_form">
                         <h1>Filtered search fields</h1>
                         <div className="new_make">
                             <p>Make:</p>
@@ -426,7 +472,7 @@ class Private extends Component {
 
                             <button onClick={this.searchInventoryFiltered}>Filter</button>
                         </div>
-                    </div>
+                    </div> */}
 
                 </div>
             </div >
