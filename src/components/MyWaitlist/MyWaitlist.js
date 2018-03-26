@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getUser, getColorArr, getMakeArr, getModelArr, getYearArr } from './../../ducks/users';
 import { Link, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
+import './MyWaitlist.css';
 
 
 
@@ -110,7 +111,12 @@ class Private extends Component {
     deleteWaitlist(id) {
         console.log('the id to delete is ', id)
         axios.delete(`/delete_waitlist/${id}`)
-            .then()
+            .then(        axios.get(`/user_waitlist/${this.props.user.id}`).then(res => {
+
+                this.setState({
+                    localWaitlist: res.data
+                })
+            }))
     }
 
     render() {
@@ -123,6 +129,18 @@ class Private extends Component {
                 return 'View Waitlist'
             } else { return 'Close Waitlist' }
         }
+
+        var searchResultsHeaders = this.state.localWaitlist.length ?
+            // <div className ="search_table_headers">
+            <tr>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Color</th>
+                <th>Date Entered</th>
+            </tr>
+            //</div>
+            :null;
 
         var makeSelection = this.props.makeArr.map((make, index) => {
             return (
@@ -186,18 +204,14 @@ class Private extends Component {
 
 
                     <table className="user_waitlist_display">
-                        <tbody>
-                            <tr>
-                                <th>Make</th>
-                                <th>Model</th>
-                                <th>Year</th>
-                                <th>Color</th>
-                                <th>Adjust</th>
-                            </tr>
-                        </tbody>
-                        <tbody>
-                            {userWaitlist}
-                        </tbody>
+                        <div>
+                            <tbody>
+                               {searchResultsHeaders}
+                            </tbody>
+                            <tbody>
+                                {userWaitlist}
+                            </tbody>
+                        </div>
                     </table>
 
                 </div>

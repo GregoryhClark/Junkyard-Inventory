@@ -105,9 +105,17 @@ class Private extends Component {
         axios.post(`/addwaitlist`, carDetails)
             .then(res => {
 
+                alert('Vehicle added to waitlist.')
+
+
                 this.setState({
-                    waitlistVisible: false,
-                    localWaitlist: res.data
+                    // waitlistVisible: false,
+                    // localWaitlist: res.data
+                    tempColor: '',
+                    tempMake: '',
+                    tempModel: '',
+                    tempYear: ''
+
                 })
             }
             )//You will need to put some schtuff here.
@@ -139,6 +147,7 @@ class Private extends Component {
 
             if (this.props.modelArr.length > 0) {
                 return (
+                    
                     <option key={index}>{model.model}</option>
 
                 )
@@ -160,7 +169,10 @@ class Private extends Component {
                 <td>{vehicle.year}<select><option>Select</option>{yearSelection}</select></td>
                 <td>{vehicle.color}<select><option>Select</option>{colorSelection}</select></td> */}
                     <td>{vehicle.make}</td>
-                    <td>{vehicle.model}</td>
+                    <td>
+                    {/* <option>Select</option> */}
+                    {vehicle.model}
+                    </td>
                     <td>{vehicle.year}</td>
                     <td>{vehicle.color}</td>
 
@@ -186,27 +198,28 @@ class Private extends Component {
                 <h1>New Waitlist</h1>
                 <div className="new_make">
                     <p>Make:</p>
-                    <select onChange={(e) => this.getModels(e.target.value)}>
+                    <select value = {this.state.tempMake} onChange={(e) => this.getModels(e.target.value)}>
                         <option>Select</option>
                         {makeSelection}
                     </select>
                     {}
                     <div className="new_model">
                         <p>Model:</p>
-                        <select onChange={(e) => this.setTempModel(e.target.value)}>
+                        <select value = {this.state.tempModel} onChange={(e) => this.setTempModel(e.target.value)}>
+                            <option>Select</option>
                             {modelSelection}
                         </select>
                     </div>
                     <div className="new_year">
                         <p>Year:</p>
-                        <select onChange={(e) => this.setTempYear(e.target.value)}>
+                        <select value = {this.state.tempYear} onChange={(e) => this.setTempYear(e.target.value)}>
                             <option>Select</option>
                             {yearSelection}
                         </select>
                     </div>
                     <div className="new_color">
                         <p>Color:</p>
-                        <select onChange={(e) => this.setTempColor(e.target.value)}>
+                        <select value = {this.state.tempColor} onChange={(e) => this.setTempColor(e.target.value)}>
                             <option>Select</option>
                             {colorSelection}
                         </select>

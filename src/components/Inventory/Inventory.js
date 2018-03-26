@@ -4,7 +4,7 @@ import { getUser, getColorArr, getMakeArr, getModelArr, getYearArr } from './../
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Inventory.css';
-const {REACT_APP_LOGOUT} = process.env
+const { REACT_APP_LOGOUT } = process.env
 
 class Private extends Component {
     constructor() {
@@ -322,12 +322,12 @@ class Private extends Component {
         return (
 
 
-            <div>
-          
-                
+            
+
+                <div>
                 <div className="topnav" id="myTopnav">
                     <a href="/#/dashboard" >Dashboard</a>
-                    <a href="/#/search">Search</a>
+                    <a href="/#/search" >Search</a>
                     {this.state.userIsAdmin ?
                         <a href="/#/inventory" className="active">Inventory</a> : null
                     }
@@ -339,6 +339,10 @@ class Private extends Component {
                     <a href={REACT_APP_LOGOUT}>Logout</a>
                     <a href="javascript:void(0);" className="icon" onClick={this.myFunction}>&#9776;</a>
                 </div>
+
+
+
+
                 <h1>Manage Invetory Here</h1>
 
                 <div className="search_bar">
@@ -391,8 +395,8 @@ class Private extends Component {
 
                 <div className='inventory_body_wrapper'>
 
-                    <div className="search_results_wrapper">
-                        <table className="search_results">
+                    <div className="inv_search_results_wrapper">
+                        <table className="inv_search_results">
                             <tbody>
                                 {searchResultHeaders}
                             </tbody>

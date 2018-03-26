@@ -1,0 +1,17 @@
+.waitlist_wrapper{
+    margin-top: 20px; 
+}
+.user_waitlist_display{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px;
+  background-color: #111C26;
+  color:#F2F2F2;
+}
+
+@media (max-width:450px){
+    .user_waitlist_display th, tr{
+    font-size:12px;
+}
+}

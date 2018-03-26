@@ -1,12 +1,12 @@
 
-  .search_results_wrapper{
+  .inv_search_results_wrapper{
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       margin-bottom:25px;
       
       
   }
-  .search_results{
+  .inv_search_results{
       grid-column-start: 2;
       
       border-radius: 12px;
@@ -15,13 +15,13 @@
       color:rgb(255, 255, 255);
       
   }
-  .search_results th{
+  inv_search_results th{
     padding:4px;
   }
-  .search_results td{
+  .inv_search_results td{
     padding-left:4px;
   }
-  .search_results button{
+  .inv_search_results button{
     margin:4px;
     border-radius: 7px;
     background-color: #111C26;
@@ -47,6 +47,3 @@
   /* .inventory_body_wrapper{
     
   } */
-  .search_form{
-    margin-bottom:25px;
-  }

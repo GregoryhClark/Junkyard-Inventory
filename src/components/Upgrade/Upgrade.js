@@ -66,7 +66,7 @@ class Private extends Component {
 
                 <div className="topnav" id="myTopnav">
                     <a href="/#/dashboard" >Dashboard</a>
-                    <a href="/#/search">Search</a>
+                    <a href="/#/search" >Search</a>
                     {this.state.userIsAdmin ?
                         <a href="/#/inventory">Inventory</a> : null
                     }
@@ -79,10 +79,12 @@ class Private extends Component {
                     <a href="javascript:void(0);" className="icon" onClick={this.myFunction}>&#9776;</a>
                 </div>
 
+                <h1 className = "upgrade_header">Upgrade to Premium for just 99 cents!</h1>
+                
                 <div className="upgrade_wrapper">
 
-                    <h1>Upgrade to Premium for just 99 cents!</h1>
-                    <p>Premium gets you immediate updates whenever a new vehicle is added to our inventory. With a basic account, notifications are sent out 24 hours after they are logged in our system.</p>
+                   
+                    <p> Want immdediate notifications? Premium gets you immediate updates whenever a new vehicle is added to our inventory. With a basic account, notifications are sent out 24 hours after they are logged in our system.</p>
                 </div>
 
 

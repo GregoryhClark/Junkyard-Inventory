@@ -60,16 +60,16 @@ class Private extends React.Component {
         return (
             <div>
                 
-                   <div className="topnav" id="myTopnav">
+                <div className="topnav" id="myTopnav">
                     <a href="/#/dashboard" >Dashboard</a>
-                    <a href="/#/search">Search</a>
+                    <a href="/#/search" >Search</a>
                     {this.state.userIsAdmin ?
-                    <a href="/#/inventory">Inventory</a> : null
+                        <a href="/#/inventory">Inventory</a> : null
                     }
-                    {this.state.userIsPremium ? null:
-                    <a href="/#/upgrade" >Upgrade</a> }
-                    
-                    
+                    {this.state.userIsPremium ? null :
+                        <a href="/#/upgrade" >Upgrade</a>}
+
+
                     <a href="/#/profile" className="active">Profile</a>
                     <a href={REACT_APP_LOGOUT}>Logout</a>
                     <a href="javascript:void(0);" className="icon" onClick={this.myFunction}>&#9776;</a>

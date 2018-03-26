@@ -163,7 +163,7 @@ class Private extends Component {
         var linkToNewWaitlist =  <Link to = '/dashboard/new_waitlist'><p>Click</p></Link>
 
         var searchResultsHeaders = this.state.localInventory.length ?
-
+            // <div className ="search_table_headers">
             <tr>
                 <th>Make</th>
                 <th>Model</th>
@@ -171,6 +171,7 @@ class Private extends Component {
                 <th>Color</th>
                 <th>Date Entered</th>
             </tr>
+            //</div>
             : this.state.filterClicked? <div> 
                 <p>Oops, it looks like we don't have any of those. <Link to="/dashboard/new_waitlist">Click here</Link> to add to your waitlist. 
                 </p> 
@@ -230,7 +231,9 @@ class Private extends Component {
                     <a href={REACT_APP_LOGOUT}>Logout</a>
                     <a href="javascript:void(0);" className="icon" onClick={this.myFunction}>&#9776;</a>
                 </div>
-                <h1>Filter Here</h1>
+
+                 <h1 className = "search_header">Search our existing inventory to see if we have what you need!</h1>
+                
                 <div className="search_bar">
 
                     <div className="new_make">
@@ -271,24 +274,11 @@ class Private extends Component {
                 </div>
 
 
-                <h1>Search our existing inventory to see if we have what you need!</h1>
+               
 
-
-                <p>Username: {user ? user.user_name : null}</p>
-
-
-
-
-                <table className="search_results">
-                    {/* <tbody>
-                        <tr>
-                            <th>Make</th>
-                            <th>Model</th>
-                            <th>Year</th>
-                            <th>Color</th>
-                            <th>Date Entered</th>
-                        </tr>
-                    </tbody> */}
+                <div className="search_search_wrapper">
+                <table className="search_search_results">
+                
                     <tbody>
                         {searchResultsHeaders}
                     </tbody>
@@ -296,30 +286,9 @@ class Private extends Component {
                         {mappedSearchResults}
                     </tbody>
                 </table>
-
-
-
-                <div className='search_results'>
-
-
-
-
-
-
                 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
+            
             </div >
 
 
