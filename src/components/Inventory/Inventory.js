@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { getUser, getColorArr, getMakeArr, getModelArr, getYearArr } from './../../ducks/users';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { confirmAlert } from 'react-confirm-alert';
 import './Inventory.css';
+import 'react-confirm-alert/src/react-confirm-alert.css'
 const { REACT_APP_LOGOUT } = process.env
 
 class Private extends Component {
@@ -164,9 +166,30 @@ class Private extends Component {
 
     }
     deleteInventory(id) {
-        console.log('the id to delete is ', id)
-        axios.delete(`/delete_inventory/${id}`)
-            .then(this.searchAllInventory)
+
+
+        confirmAlert({
+            title: 'Confirm Delete',
+            message: 'Are you sure you want to delete this?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => {
+                        console.log('the id to delete is ', id)
+                        axios.delete(`/delete_inventory/${id}`)
+                            .then(this.searchAllInventory)
+                    }
+                },
+                {
+                    label: 'No',
+                    onClick: () => null
+                }
+            ]
+        })
+
+        // console.log('the id to delete is ', id)
+        // axios.delete(`/delete_inventory/${id}`)
+        //     .then(this.searchAllInventory)
     }
     editInventory(vehicleID) {
 

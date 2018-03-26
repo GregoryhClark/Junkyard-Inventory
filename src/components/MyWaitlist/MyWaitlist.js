@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import { confirmAlert } from 'react-confirm-alert';
 import { getUser, getColorArr, getMakeArr, getModelArr, getYearArr } from './../../ducks/users';
 import { Link, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
 import './MyWaitlist.css';
+import 'react-confirm-alert/src/react-confirm-alert.css'
 
 
 
@@ -110,14 +112,33 @@ class Private extends Component {
 
     deleteWaitlist(id) {
         console.log('the id to delete is ', id)
-        
-        axios.delete(`/delete_waitlist/${id}`)
-            .then(        axios.get(`/user_waitlist/${this.props.user.id}`).then(res => {
 
-                this.setState({
-                    localWaitlist: res.data
-                })
-            }))
+        confirmAlert({
+            title: 'Confirm Delete',
+            message: 'Are you sure you want to delete this?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: ()=>{
+                        axios.delete(`/delete_waitlist/${id}`)
+                        .then(        axios.get(`/user_waitlist/${this.props.user.id}`).then(res => {
+            
+                            this.setState({
+                                localWaitlist: res.data
+                            })
+                        }))
+                    }
+                },
+                {
+                    label: 'No',
+                    onClick: () => null
+                  }
+            ]
+        })
+
+
+
+
     }
 
     render() {
