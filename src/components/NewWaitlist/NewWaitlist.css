@@ -1,0 +1,10 @@
+
+
+.new_waitlist_wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+.new_waitlist{
+    width: 50%;
+}

@@ -4,7 +4,7 @@ import { getUser } from './../../ducks/users'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Profile.css';
-const {REACT_APP_LOGOUT} = process.env
+const { REACT_APP_LOGOUT } = process.env
 class Private extends React.Component {
     constructor() {
         super()
@@ -12,22 +12,22 @@ class Private extends React.Component {
             tempName: '',
             tempEmail: '',
             tempCell: '',
-            userIsAdmin:false,
-            userIsPremium:false
+            userIsAdmin: false,
+            userIsPremium: false
         }
     }
 
 
     componentDidMount() {
 
-        
+
         this.props.getUser()
             .then((res) => {
-                console.log('here it is!',res.value)
+                console.log('here it is!', res.value)
                 this.setState({
                     localUserID: res.value.id,
-                    userIsAdmin:res.value.is_admin,
-                    userIsPremium:res.value.is_premium
+                    userIsAdmin: res.value.is_admin,
+                    userIsPremium: res.value.is_premium
                 })
             })
     }
@@ -39,12 +39,12 @@ class Private extends React.Component {
         // console.log('profile info is now', profileInfo, this.props.user)
         axios.put('/profile', profileInfo)
             .then(this.setState({
-                tempName:'',
+                tempName: '',
                 tempEmail: '',
                 tempCell: ''
             }),
-            alert("Your Info has saved!"),
-            
+                alert("Your Info has saved!"),
+
         )
     }
     myFunction() {
@@ -54,12 +54,12 @@ class Private extends React.Component {
         } else {
             x.className = "topnav";
         }
-    } 
+    }
     render() {
         const user = this.props.user;
         return (
             <div>
-                
+
                 <div className="topnav" id="myTopnav">
                     <a href="/#/dashboard" >Dashboard</a>
                     <a href="/#/search" >Search</a>
@@ -76,27 +76,27 @@ class Private extends React.Component {
                 </div>
 
 
+                <div className="update_profile_form_wrapper">
+                    <div className="update_profile_form">
+                        <div className="change_name">
+                            <p>Name:</p>
+                            <input value={this.state.tempName} onChange={(e) => this.setState({ tempName: e.target.value })} />
+                        </div>
 
-                <div className = "update_profile_form">
-                <div className="change_name">
-                    <p>Name:</p>
-                    <input value={this.state.tempName} onChange={(e) => this.setState({ tempName: e.target.value })} />
+                        <div className="change_Email">
+                            <p>Email:</p>
+                            <input value={this.state.tempEmail} onChange={(e) => this.setState({ tempEmail: e.target.value })} />
+                        </div>
+
+                        <div className="change_Phone">
+                            <p>Cell Phone:</p>
+                            <input value={this.state.tempCell} onChange={(e) => this.setState({ tempCell: e.target.value })} />
+                        </div>
+
+                        <button className="save_profile" onClick={(e) => this.updateUserInfo()}>Save</button>
+                        {/* This will need an OnClick that invokes a function to update appstate. */}
+                    </div>
                 </div>
-
-                <div className="change_Email">
-                    <p>Email:</p>
-                    <input value={this.state.tempEmail} onChange={(e) => this.setState({ tempEmail: e.target.value })} />
-                </div>
-
-                <div className="change_Phone">
-                    <p>Cell Phone:</p>
-                    <input value={this.state.tempCell} onChange={(e) => this.setState({ tempCell: e.target.value })} />
-                </div>
-
-                <button className="save_profile" onClick={(e) => this.updateUserInfo()}>Save</button>
-                {/* This will need an OnClick that invokes a function to update appstate. */}
-                </div>
-
             </div>
         )
     }

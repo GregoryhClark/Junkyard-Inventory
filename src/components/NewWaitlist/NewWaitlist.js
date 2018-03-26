@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getUser, getColorArr, getMakeArr, getModelArr, getYearArr } from './../../ducks/users';
 import { Link, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
+import './NewWaitlist.css';
 
 
 
@@ -147,7 +148,7 @@ class Private extends Component {
 
             if (this.props.modelArr.length > 0) {
                 return (
-                    
+
                     <option key={index}>{model.model}</option>
 
                 )
@@ -170,8 +171,8 @@ class Private extends Component {
                 <td>{vehicle.color}<select><option>Select</option>{colorSelection}</select></td> */}
                     <td>{vehicle.make}</td>
                     <td>
-                    {/* <option>Select</option> */}
-                    {vehicle.model}
+                        {/* <option>Select</option> */}
+                        {vehicle.model}
                     </td>
                     <td>{vehicle.year}</td>
                     <td>{vehicle.color}</td>
@@ -193,42 +194,42 @@ class Private extends Component {
 
 
         return (
+            <div className = "new_waitlist_wrapper">
+                <div className="new_waitlist">
+                    <h1>New Waitlist</h1>
+                    <div className="new_make">
+                        <p>Make:</p>
+                        <select value={this.state.tempMake} onChange={(e) => this.getModels(e.target.value)}>
+                            <option>Select</option>
+                            {makeSelection}
+                        </select>
+                        {}
+                        <div className="new_model">
+                            <p>Model:</p>
+                            <select value={this.state.tempModel} onChange={(e) => this.setTempModel(e.target.value)}>
+                                <option>Select</option>
+                                {modelSelection}
+                            </select>
+                        </div>
+                        <div className="new_year">
+                            <p>Year:</p>
+                            <select value={this.state.tempYear} onChange={(e) => this.setTempYear(e.target.value)}>
+                                <option>Select</option>
+                                {yearSelection}
+                            </select>
+                        </div>
+                        <div className="new_color">
+                            <p>Color:</p>
+                            <select value={this.state.tempColor} onChange={(e) => this.setTempColor(e.target.value)}>
+                                <option>Select</option>
+                                {colorSelection}
+                            </select>
+                        </div>
 
-            <div className="new_waitlist">
-                <h1>New Waitlist</h1>
-                <div className="new_make">
-                    <p>Make:</p>
-                    <select value = {this.state.tempMake} onChange={(e) => this.getModels(e.target.value)}>
-                        <option>Select</option>
-                        {makeSelection}
-                    </select>
-                    {}
-                    <div className="new_model">
-                        <p>Model:</p>
-                        <select value = {this.state.tempModel} onChange={(e) => this.setTempModel(e.target.value)}>
-                            <option>Select</option>
-                            {modelSelection}
-                        </select>
-                    </div>
-                    <div className="new_year">
-                        <p>Year:</p>
-                        <select value = {this.state.tempYear} onChange={(e) => this.setTempYear(e.target.value)}>
-                            <option>Select</option>
-                            {yearSelection}
-                        </select>
-                    </div>
-                    <div className="new_color">
-                        <p>Color:</p>
-                        <select value = {this.state.tempColor} onChange={(e) => this.setTempColor(e.target.value)}>
-                            <option>Select</option>
-                            {colorSelection}
-                        </select>
+                        <button onClick={this.addWaitlist}>Save</button>
                     </div>
 
-                    <button onClick={this.addWaitlist}>Save</button>
                 </div>
-
-
             </div>
 
 
