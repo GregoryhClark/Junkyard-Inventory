@@ -44,7 +44,7 @@ class Private extends Component {
         console.log('token', token);
         //Hey, this might be what's broken.
         axios.post(`${REACT_APP_PAYMENT_REQ}${user.id}`, { token, amount: 100 }).then(response => {
-            alert(`We are in business user ${user.id}`)
+            alert(`You have been upgraded to premium!`)
             console.log(response)
         });
 

@@ -30,7 +30,8 @@ class Private extends Component {
                 console.log('here it is!', res.value)
                 this.setState({
                     localUserID: res.value.id,
-                    userIsAdmin: res.value.is_admin
+                    userIsAdmin: res.value.is_admin,
+                    userIsPremium:res.value.is_premium
                 })
             })
 
@@ -59,6 +60,7 @@ class Private extends Component {
                     {this.state.userIsAdmin ?
                         <a href="/#/inventory">Inventory</a> : null
                     }
+                    
                     {this.state.userIsPremium ? null :
                         <a href="/#/upgrade" >Upgrade</a>}
 

@@ -110,6 +110,7 @@ class Private extends Component {
 
     deleteWaitlist(id) {
         console.log('the id to delete is ', id)
+        
         axios.delete(`/delete_waitlist/${id}`)
             .then(        axios.get(`/user_waitlist/${this.props.user.id}`).then(res => {
 

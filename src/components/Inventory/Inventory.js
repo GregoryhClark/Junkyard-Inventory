@@ -322,9 +322,9 @@ class Private extends Component {
         return (
 
 
-            
 
-                <div>
+
+            <div>
                 <div className="topnav" id="myTopnav">
                     <a href="/#/dashboard" >Dashboard</a>
                     <a href="/#/search" >Search</a>
@@ -341,9 +341,6 @@ class Private extends Component {
                 </div>
 
 
-
-
-                <h1>Manage Invetory Here</h1>
 
                 <div className="search_bar">
 
@@ -415,12 +412,15 @@ class Private extends Component {
 
                     <div className="new_entry_form">
                         <h1 className='new_waitlist_title'>Enter New Vehicle</h1>
-                        <div className="new_make">
-                            <p>Make:</p>
-                            <select onChange={(e) => this.getModels(e.target.value)}>
-                                <option>Select</option>
-                                {makeSelection}
-                            </select>
+
+                        <div className="new_selects">
+                            <div className="newer_make">
+                                <p>Make:</p>
+                                <select onChange={(e) => this.getModels(e.target.value)}>
+                                    <option>Select</option>
+                                    {makeSelection}
+                                </select>
+                            </div>
 
                             <div className="new_model">
                                 <p>Model:</p>

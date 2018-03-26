@@ -17,22 +17,19 @@
   /* margin:5px; */
   /* padding:10px; */
   border-radius: 7px;
-  background-color: #111C26;
+  background-color: #28282A;
   color:#F2F2F2;
 }
-/* .search_search_results tr{
-  margin:10px;
-} */
+.search_search_results td, th{
+  padding:10px;
+}
 .search_form{
   margin-bottom:25px;
 }
 .search_header{
-  display: flex;
-  justify-content: center;
-  margin-top:50px;
-  
-  font-size:30px;
-  width:90%;
+  margin-top:20px;
+  font-size: 35px;
+  padding:30px;
   
 }
 @media (max-width: 400px){
@@ -41,5 +38,8 @@
   }
   option{
     font-size: 12px;
+  }
+  select{
+    font-size: 11px
   }
 }

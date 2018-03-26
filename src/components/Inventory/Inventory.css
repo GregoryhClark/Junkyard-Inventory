@@ -32,18 +32,24 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-column-start: 2;
-    border-radius: 12px;
-    background-color: #28282A;
-    color: rgb(255, 255, 255);
-    margin-bottom:25px;
+
+  
     
   }
   .new_waitlist_title{
     grid-column-start: 2;
+    margin-bottom:10px;
   }
-  .new_make{
+  .new_selects{
     grid-column-start: 2;
+    border-radius: 12px;
+    background-color: #28282A;
+    color: rgb(255, 255, 255);
+    margin-bottom:25px;
   }
   /* .inventory_body_wrapper{
     
   } */
+th{
+  font-weight: bold;
+}

@@ -7,7 +7,7 @@
     justify-items: center;
     background-color: #0D0D0D;
 }
-.login_box{
+.whatever{
     background-color: #465E73;
     grid-column-start:2;
     grid-row-start:2;
@@ -16,9 +16,11 @@
    
 }
 .logo_wrapper{
-    height: 90%;
-    grid-column-start:3;
-    grid-row-start:2;
+    height: 100%;
+   
+}
+.logo_wrapper img{
+    padding:10px;
 }
 .car_logo{
     height:100%;
@@ -35,6 +37,23 @@
     background-color: #111C26;
     color:#F2F2F2;
 }
-.logo_wrapper img{
-    padding:10px;
+
+.login_text{
+    height: 90%;
+    grid-column-start:2;
+}
+.welcome_intro{
+    margin-top:35px;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+.login_button_wrapper{
+    grid-column-start: 2;
+    width:100%
+
+}
+.login_btn button{
+    width: 100px;
+    height: 50px;
+    font-size: 25px
 }
