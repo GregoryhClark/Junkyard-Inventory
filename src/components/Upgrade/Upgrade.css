@@ -5,13 +5,13 @@ body {
 
 .topnav {
   overflow: hidden;
-  background-color: #465E73;
+  background-color: #0E254B;
 }
 
 .topnav a {
   float: left;
   display: block;
-  color: #f2f2f2;
+  color: #FFDD27;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -24,7 +24,7 @@ body {
 }
 
 .active {
-  background-color: #6A8FA6;
+  background-color: #0E254B;
   color: white;
 }
 
@@ -63,10 +63,14 @@ body {
 
 
 .upgrade_wrapper{
-background-color: #465E73;
+background-color: #0E254B;
 border-radius: 14px;
-margin:40px 40px 40px;
+margin:40px;
 padding:15px;
+color:#FFDD27;
+max-width: 500px;
+margin-left: auto;
+margin-right: auto;
 }
 .upgrade_header{
   margin-top:20px;

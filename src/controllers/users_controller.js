@@ -66,6 +66,18 @@ module.exports = {
             .then((car) => { res.status(200).send(car) })
             .catch(() => res.status(500).send())
     },
+    
+    getByColor:(req,res,next) => {
+        const db = req.app.get('db');
+        const {color} = req.query;
+        if (!color){
+            res.status(200).send('none here');
+        } else {
+            db.get_filtered_by_color([color])
+            .then((car) => { res.status(200).send(car) })
+            .catch(() => res.status(500).send())
+        }
+    },
     enterInventory: (req, res) => {
         const db = req.app.get('db');
         const { tempColor, tempMake, tempModel, tempYear } = req.body;
@@ -99,6 +111,7 @@ module.exports = {
             return res.sendStatus(200);
         })
     },
+
 
 
 

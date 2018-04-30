@@ -55,14 +55,14 @@ table {
 
 
 .dashboard_wrapper{
-  background-color: #0D0D0D;
+  background-color: #cccccc;
   height: 100vh;
-  color:#F2F2F2;
+  color:#0E254B;
 }
-button{
+button {
     border-radius: 7px;
-    background-color: #111C26;
-    color:#F2F2F2;
+    background-color: #0E254B;
+    color:#FFDD27;
 }
 
 
@@ -86,7 +86,7 @@ padding:8px;
 
 .dash_profile_wrapper{
     height: 60px;
-    background-color: #0D0D0D;
+    background-color: #cccccc;
     display: flex;
     align-items: left;
     
@@ -105,7 +105,7 @@ padding:8px;
 }
 .the_ps p{
     margin:5px;
-    color:#F2F2F2;
+    color:#0E254B;
     text-align: left;
 }
 .dash_pic{
@@ -126,8 +126,8 @@ padding:8px;
 }
 
 select{
-  background-color: #111C26;
-  color:#F2F2F2;
+  background-color: #0E254B;
+  color:#FFDD27;
 }
 .dash_nav {
     display: flex;
@@ -140,8 +140,8 @@ select{
 }
 .dash_nav a {
     text-decoration: none;
-    background-color: #465E73;
-    color: #F2F2F2;
+    background-color: #0E254B;
+    color: #FFDD27;
     margin:10px;
     height: 250px;
     width: 250px;
@@ -152,8 +152,8 @@ select{
 }
 
 .dash_nav a:hover {
-    background-color: #F2F2F2;
-    color: #0D0D0D;
+    background-color: #0A0624;
+    color: white;
   }
   @media (max-width:560px){
     .dash_nav a{

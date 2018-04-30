@@ -11,33 +11,17 @@ import NewWaitlist from '../NewWaitlist/NewWaitlist';
 const { REACT_APP_LOGOUT } = process.env
 
 class Private extends Component {
-    constructor() {
-        super()
-        this.state = {
-            localUserID: -1,
-            userIsAdmin: false,
-            userIsPremium: false,
 
-
-
-        }
-
-    }
     componentDidMount() {
 
         this.props.getUser()
             .then((res) => {
                 console.log('here it is!', res.value)
-                this.setState({
-                    localUserID: res.value.id,
-                    userIsAdmin: res.value.is_admin,
-                    userIsPremium:res.value.is_premium
-                })
             })
 
-    }
+    } 
 
-    myFunction() {
+    changeHamburger() {
         var x = document.getElementById("myTopnav");
         if (x.className === "topnav") {
             x.className += " responsive";
@@ -49,28 +33,24 @@ class Private extends Component {
     render() {
         const user = this.props.user;
 
-
-
         return (
             <div className='dashboard_wrapper'>
 
                          <div className="topnav" id="myTopnav">
                     <a href="/#/dashboard" className="active">Dashboard</a>
                     <a href="/#/search" >Search</a>
-                    {this.state.userIsAdmin ?
+                    {this.props.user.is_admin ?
                         <a href="/#/inventory">Inventory</a> : null
                     }
                     
-                    {this.state.userIsPremium ? null :
+                    {this.props.is_premium ? null :
                         <a href="/#/upgrade" >Upgrade</a>}
 
 
                     <a href="/#/profile">Profile</a>
                     <a href={REACT_APP_LOGOUT}>Logout</a>
-                    <a href="javascript:void(0);" className="icon" onClick={this.myFunction}>&#9776;</a>
+                    <a href="javascript:void(0);" className="icon" onClick={this.changeHamburger}>&#9776;</a>
                 </div>
-
-
 
 
 

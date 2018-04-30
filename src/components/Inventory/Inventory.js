@@ -17,13 +17,6 @@ class Private extends Component {
             tempMake: '',
             tempModel: '',
             tempYear: '',
-            editWasClicked: false,
-            filteredColor: '',
-            filteredMake: '',
-            filteredModel: '',
-            filteredYear: '',
-            userIsAdmin: false,
-            userIsPremium: false,
             isEditing: false,
             editingIndex: -1,
             filterClicked: false
@@ -44,11 +37,7 @@ class Private extends Component {
         this.props.getUser()
             .then((res) => {
                 console.log('here it is!', res.value)
-                this.setState({
-                    localUserID: res.value.id,
-                    userIsAdmin: res.value.is_admin,
-                    userIsPremium: res.value.is_premium
-                })
+               
             })
 
         axios.get('/findcolor')
@@ -239,7 +228,6 @@ class Private extends Component {
             editingIndex: invID,
             isEditing: true
         })
-        console.log(this.state.isEditing, this.state.editingIndex)
 
 
 
@@ -282,7 +270,7 @@ class Private extends Component {
                 <th>Date Entered</th>
             </tr>
             : this.state.filterClicked ? <div>
-                <p>Oops, it looks like we don't have any of those. <Link to="/dashboard/new_waitlist">Click here</Link> to add to your waitlist.
+                <p className="oops">Oops, it looks like we don't have any of those. <Link to="/dashboard/new_waitlist">Click here</Link> to add to your waitlist.
             </p>
             </div>
                 : null;
@@ -351,11 +339,14 @@ class Private extends Component {
                 <div className="topnav" id="myTopnav">
                     <a href="/#/dashboard" >Dashboard</a>
                     <a href="/#/search" >Search</a>
-                    {this.state.userIsAdmin ?
-                        <a href="/#/inventory" className="active">Inventory</a> : null
+                    {this.props.user.is_admin ?
+                        <a href="/#/inventory">Inventory</a> : null
                     }
-                    {this.state.userIsPremium ? null :
+                    
+                    {this.props.is_premium ? null :
                         <a href="/#/upgrade" >Upgrade</a>}
+
+
 
 
                     <a href="/#/profile">Profile</a>
@@ -427,12 +418,6 @@ class Private extends Component {
                     </div>
 
 
-
-
-                    {/* <div className='search_results'>
-
-                </div> */}
-
                     <div className="new_entry_form">
                         <h1 className='new_waitlist_title'>Enter New Vehicle</h1>
 
@@ -470,40 +455,6 @@ class Private extends Component {
                             <button onClick={this.enterInventory}>Save Entry</button>
                         </div>
                     </div>
-
-                    {/* <div className="search_form">
-                        <h1>Filtered search fields</h1>
-                        <div className="new_make">
-                            <p>Make:</p>
-                            <select onChange={(e) => this.getModels(e.target.value)}>
-                                <option>Select</option>
-                                {makeSelection}
-                            </select>
-
-                            <div className="new_model">
-                                <p>Model:</p>
-                                <select onChange={(e) => this.setTempModel(e.target.value)}>
-                                    {modelSelection}
-                                </select>
-                            </div>
-                            <div className="new_year">
-                                <p>Year:</p>
-                                <select onChange={(e) => this.setTempYear(e.target.value)}>
-                                    <option>Select</option>
-                                    {yearSelection}
-                                </select>
-                            </div>
-                            <div className="new_color">
-                                <p>Color:</p>
-                                <select onChange={(e) => this.setTempColor(e.target.value)}>
-                                    <option>Select</option>
-                                    {colorSelection}
-                                </select>
-                            </div>
-
-                            <button onClick={this.searchInventoryFiltered}>Filter</button>
-                        </div>
-                    </div> */}
 
                 </div>
             </div >

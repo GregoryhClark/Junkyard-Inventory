@@ -4,7 +4,7 @@ import { getUser, getColorArr, getMakeArr, getModelArr, getYearArr } from './../
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Search.css';
-const {REACT_APP_LOGOUT} = process.env
+const { REACT_APP_LOGOUT } = process.env
 
 class Private extends Component {
     constructor() {
@@ -18,6 +18,7 @@ class Private extends Component {
             userIsAdmin: false,
             userIsPremium: false,
             filterClicked: false,
+            searchByColor: ''
 
         }
         this.searchInventoryFiltered = this.searchInventoryFiltered.bind(this)//wtf?
@@ -96,25 +97,39 @@ class Private extends Component {
             tempYear: selectedYear
         })
     }
+    searchByQuery() {
+        axios.get(`/vehicles?color=${this.state.searchByColor}`).then(res => {
+            this.setState({
+                localInventory: res.data,
+                filterClicked: true
+            })
+        })
+    }
+    updateSearchByColor(color) {
+        this.setState({
+            searchByColor: color
+        })
+
+    }
 
     searchInventoryFiltered() {
         // if()
 
         let searchObj = this.state;
-        let {tempMake, tempColor, tempModel, tempYear} = this.state;
-        if(tempMake && tempColor && tempModel && tempYear){
+        let { tempMake, tempColor, tempModel, tempYear } = this.state;
+        if (tempMake && tempColor && tempModel && tempYear) {
 
-        axios.get(`/filteredinventory/${tempMake}/${tempModel}/${tempYear}/${tempColor}`)
-            .then(res => {
-                console.log('filtered res.data is finally', res.data)
-                this.setState({
+            axios.get(`/filteredinventory/${tempMake}/${tempModel}/${tempYear}/${tempColor}`)
+                .then(res => {
+                    console.log('filtered res.data is finally', res.data)
+                    this.setState({
 
-                    localInventory: res.data,
-                    filterClicked:true
+                        localInventory: res.data,
+                        filterClicked: true
+                    })
+
+                    console.log('filtered res.data is now', res.data)
                 })
-
-                console.log('filtered res.data is now', res.data)
-            })
         } else {
             alert('You must select all values.')
         }
@@ -125,7 +140,7 @@ class Private extends Component {
             .then(res => {
                 this.setState({
                     localInventory: res.data,
-                    filterClicked:false
+                    filterClicked: false
                 })
 
                 console.log('all inv res.data is now', res.data)
@@ -160,7 +175,7 @@ class Private extends Component {
             )
         })
 
-        var linkToNewWaitlist =  <Link to = '/dashboard/new_waitlist'><p>Click</p></Link>
+        var linkToNewWaitlist = <Link to='/dashboard/new_waitlist'><p>Click</p></Link>
 
         var searchResultsHeaders = this.state.localInventory.length ?
             // <div className ="search_table_headers">
@@ -172,11 +187,11 @@ class Private extends Component {
                 <th>Date Entered</th>
             </tr>
             //</div>
-            : this.state.filterClicked? <div> 
-                <p>Oops, it looks like we don't have any of those. <Link to="/dashboard/new_waitlist">Click here</Link> to add to your waitlist. 
-                </p> 
-                </div>
-            :null;
+            : this.state.filterClicked ? <div>
+                <p className="oops">Oops, it looks like we don't have any of those. <Link to="/dashboard/new_waitlist">Click here</Link> to add to your waitlist.
+                </p>
+            </div>
+                : null;
 
 
         const user = this.props.user;
@@ -220,11 +235,13 @@ class Private extends Component {
                 <div className="topnav" id="myTopnav">
                     <a href="/#/dashboard" >Dashboard</a>
                     <a href="/#/search" className="active">Search</a>
-                    {this.state.userIsAdmin ?
+                    {this.props.user.is_admin ?
                         <a href="/#/inventory">Inventory</a> : null
                     }
-                    {this.state.userIsPremium ? null :
+
+                    {this.props.is_premium ? null :
                         <a href="/#/upgrade" >Upgrade</a>}
+
 
 
                     <a href="/#/profile">Profile</a>
@@ -232,8 +249,11 @@ class Private extends Component {
                     <a href="javascript:void(0);" className="icon" onClick={this.myFunction}>&#9776;</a>
                 </div>
 
-                 <h1 className = "search_header">Search our existing inventory to see if we have what you need!</h1>
-                
+                <h1 className="search_header">Search our existing inventory to see if we have what you need!</h1>
+
+                <input onChange={(e) => this.updateSearchByColor(e.target.value)} type="text" className="url_query" />
+                <button onClick={() => this.searchByQuery()}>Filter By Color</button>
+
                 <div className="search_bar">
 
                     <div className="new_make">
@@ -246,7 +266,7 @@ class Private extends Component {
                     <div className="new_model">
                         <p>Model:</p>
                         <select onChange={(e) => this.setTempModel(e.target.value)}>
-                        <option>Select</option>
+                            <option>Select</option>
                             {modelSelection}
                         </select>
                     </div>
@@ -264,31 +284,33 @@ class Private extends Component {
                             {colorSelection}
                         </select>
                     </div>
-                    
+                </div>
+
+                <div className="filter_buttons">
                     <button onClick={this.searchInventoryFiltered}>Filter</button>
-
-                    
                     <button onClick={this.searchAllInventory}>Clear Filters</button>
-                    
-
                 </div>
 
 
-               
+
+
+
+
+
 
                 <div className="search_search_wrapper">
-                <table className="search_search_results">
-                
-                    <tbody>
-                        {searchResultsHeaders}
-                    </tbody>
-                    <tbody>
-                        {mappedSearchResults}
-                    </tbody>
-                </table>
+                    <table className="search_search_results">
+
+                        <tbody>
+                            {searchResultsHeaders}
+                        </tbody>
+                        <tbody>
+                            {mappedSearchResults}
+                        </tbody>
+                    </table>
                 </div>
 
-            
+
             </div >
 
 

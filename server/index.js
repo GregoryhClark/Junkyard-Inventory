@@ -122,5 +122,13 @@ app.delete('/delete_waitlist/:id', users_controller.deleteWaitlist)
 
 app.post('/api/payment/:id', users_controller.upgradeUser)
 
+app.get('/vehicles' , users_controller.getByColor)
+// app.get('/vehicles', function(req,res, next){
+//     var result = vehicles;
+//     if (req.query.search){
+//         result = result.filter(function())
+//     }
+// })
+
 app.listen(SERVER_PORT, () => console.log(`listening on port ${SERVER_PORT}`));
 

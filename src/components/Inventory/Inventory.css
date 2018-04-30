@@ -32,9 +32,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-column-start: 2;
-
-  
-    
   }
   .new_waitlist_title{
     grid-column-start: 2;
@@ -52,4 +49,10 @@
   } */
 th{
   font-weight: bold;
+}
+.oops{
+  padding:25px;
+}
+.oops a:-webkit-any-link{
+  color:#BFC4C0;
 }

@@ -5,7 +5,7 @@
     grid-template-rows: 30% 40% 10% 30%;
     align-items: center;
     justify-items: center;
-    background-color: #0D0D0D;
+    background-color: #0E254B;
 }
 .whatever{
     background-color: #465E73;
@@ -17,6 +17,8 @@
 }
 .logo_wrapper{
     height: 100%;
+    background: #FFDD27;
+    border-radius: 16px;
    
 }
 .logo_wrapper img{
@@ -35,12 +37,15 @@
 .login_btn button{
     border-radius: 7px;
     background-color: #111C26;
-    color:#F2F2F2;
+    color:#BFC4C0;
 }
 
 .login_text{
     height: 90%;
     grid-column-start:2;
+}
+.login_text h1{
+    color:#cccccc;
 }
 .welcome_intro{
     margin-top:35px;

@@ -63,11 +63,14 @@ class Private extends React.Component {
                 <div className="topnav" id="myTopnav">
                     <a href="/#/dashboard" >Dashboard</a>
                     <a href="/#/search" >Search</a>
-                    {this.state.userIsAdmin ?
+                    {this.props.user.is_admin ?
                         <a href="/#/inventory">Inventory</a> : null
                     }
-                    {this.state.userIsPremium ? null :
+                    
+                    {this.props.is_premium ? null :
                         <a href="/#/upgrade" >Upgrade</a>}
+
+
 
 
                     <a href="/#/profile" className="active">Profile</a>

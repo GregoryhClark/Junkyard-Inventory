@@ -26,14 +26,7 @@ class Private extends Component {
 
 
         this.props.getUser()
-        // .then((res) => {
-        //     console.log('here it is!',res.value)
-        //     this.setState({
-        //         localUserID: res.value.id,
-        //         userIsAdmin:res.value.is_admin,
-        //         userIsPremium:res.value.is_premium
-        //     })
-        // })
+
     }
 
     onToken(token) {
@@ -67,11 +60,12 @@ class Private extends Component {
                 <div className="topnav" id="myTopnav">
                     <a href="/#/dashboard" >Dashboard</a>
                     <a href="/#/search" >Search</a>
-                    {this.state.userIsAdmin ?
+                    {this.props.user.is_admin ?
                         <a href="/#/inventory">Inventory</a> : null
                     }
-                    {this.state.userIsPremium ? null :
-                        <a href="/#/upgrade" className="active">Upgrade</a>}
+                    
+                    {this.props.is_premium ? null :
+                        <a href="/#/upgrade" >Upgrade</a>}
 
 
                     <a href="/#/profile">Profile</a>
