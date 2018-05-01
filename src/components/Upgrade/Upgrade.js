@@ -20,11 +20,8 @@ class Private extends Component {
         this.onToken = this.onToken.bind(this);
     }
 
-
     componentDidMount() {
         let user = this.props.user;
-
-
         this.props.getUser()
 
     }
@@ -67,7 +64,6 @@ class Private extends Component {
                     {this.props.is_premium ? null :
                         <a href="/#/upgrade" >Upgrade</a>}
 
-
                     <a href="/#/profile">Profile</a>
                     <a href={REACT_APP_LOGOUT}>Logout</a>
                     <a href="javascript:void(0);" className="icon" onClick={this.myFunction}>&#9776;</a>
@@ -90,10 +86,6 @@ class Private extends Component {
                         amount={0.99} />
 
                 </div>
-
-
-
-
 
             </div>
         )
