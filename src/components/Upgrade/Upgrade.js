@@ -74,14 +74,14 @@ class Private extends Component {
                 </div>
 
                 <h1 className = "upgrade_header">Upgrade to Premium for just 99 cents!</h1>
+
+             
                 
                 <div className="upgrade_wrapper">
 
-                   
-                    <p> Want immdediate notifications? Premium gets you immediate updates whenever a new vehicle is added to our inventory. With a basic account, notifications are sent out 24 hours after they are logged in our system.</p>
+                   <p> Want immdediate notifications? Premium gets you immediate updates whenever a new vehicle is added to our inventory. With a basic account, notifications are sent out 24 hours after they are logged in our system.</p>
+
                 </div>
-
-
 
                 <div className="checkout_form">
                     <StripeCheckout

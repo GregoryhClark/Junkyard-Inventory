@@ -99,7 +99,6 @@ app.get('/auth/me', (req,res) => {
 })
 
 app.get('/auth/logout', (req, res) => {
-     console.log ("req is now ", LOGOUT)
     req.logOut();
     res.redirect(LOGOUT)
 })

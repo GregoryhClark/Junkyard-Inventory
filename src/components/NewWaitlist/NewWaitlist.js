@@ -197,7 +197,7 @@ class Private extends Component {
             <div className = "new_waitlist_wrapper">
                 <div className="new_waitlist">
                     <h1>New Waitlist</h1>
-                    <div className="new_make">
+                    <div className="new_waitlist_options">
                         <p>Make:</p>
                         <select value={this.state.tempMake} onChange={(e) => this.getModels(e.target.value)}>
                             <option>Select</option>

@@ -8,3 +8,7 @@
 .new_waitlist{
     width: 50%;
 }
+
+.new_waitlist_options p,button{
+    margin:9px;
+}

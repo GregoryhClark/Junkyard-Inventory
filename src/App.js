@@ -7,7 +7,6 @@ import Profile from './components/Profile/Profile.js';
 import Upgrade from './components/Upgrade/Upgrade';
 import Inventory from './components/Inventory/Inventory';
 import Search from './components/Search/Search';
-import TestComp from './components/TestComp/TestComp';
 
 
 import './App.css';
@@ -26,7 +25,6 @@ class App extends Component {
             <Route path='/dashboard' component={Dashboard} />
             <Route path='/profile' component={Profile} />
             <Route path='/upgrade' component={Upgrade} />
-            <Route path='/testcomp' component={TestComp} />
             <Route path='/search' component={Search} />
             <Route path='/inventory' component={Inventory} />
           </Switch>
