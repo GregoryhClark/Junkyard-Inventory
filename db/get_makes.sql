@@ -1,1 +1,1 @@
-select * from make
+select * from make order by make;

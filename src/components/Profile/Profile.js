@@ -23,7 +23,6 @@ class Private extends React.Component {
 
         this.props.getUser()
             .then((res) => {
-                console.log('here it is!', res.value)
                 this.setState({
                     localUserID: res.value.id,
                     userIsAdmin: res.value.is_admin,
@@ -33,10 +32,9 @@ class Private extends React.Component {
     }
 
     updateUserInfo() {
-        // this.props.user.email
         let profileInfo = this.state;
         profileInfo.user_id = this.props.user.id
-        // console.log('profile info is now', profileInfo, this.props.user)
+
         axios.put('/profile', profileInfo)
             .then(this.setState({
                 tempName: '',

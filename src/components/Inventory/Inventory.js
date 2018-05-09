@@ -36,25 +36,23 @@ class Private extends Component {
 
         this.props.getUser()
             .then((res) => {
-                console.log('here it is!', res.value)
                
             })
 
         axios.get('/findcolor')
             .then(res => {
-                // console.log('color res.data is now', res.data)
+              
                 this.props.getColorArr(res.data);
             })
 
         axios.get('/findmakes')
             .then(res => {
-                // console.log(' make res.data is now', res.data)
+              
                 this.props.getMakeArr(res.data);
             })
 
         axios.get('/findyear')
             .then(res => {
-                // console.log('year res.data is now', res.data)
                 this.props.getYearArr(res.data);
             })
         axios.get('/allinventory')
@@ -63,11 +61,10 @@ class Private extends Component {
                     localInventory: res.data
                 })
 
-                // console.log('all inv res.data is now', res.data)
+               
             })
     }
     searchInventoryFiltered() {
-        // if()
 
         let searchObj = this.state;
         let { tempMake, tempColor, tempModel, tempYear } = this.state;
@@ -75,14 +72,12 @@ class Private extends Component {
 
             axios.get(`/filteredinventory/${tempMake}/${tempModel}/${tempYear}/${tempColor}`)
                 .then(res => {
-                    console.log('filtered res.data is finally', res.data)
+                   
                     this.setState({
 
                         localInventory: res.data,
                         filterClicked: true
                     })
-
-                    console.log('filtered res.data is now', res.data)
                 })
         } else {
             alert('You must select all values.')
@@ -91,13 +86,13 @@ class Private extends Component {
 
 
     getModels(selectedMake) {
-        // console.log(selectedMake)
+        
         this.setState({
             tempMake: selectedMake
         })
         axios.get(`/findmodels/${selectedMake}`)
             .then(res => {
-                // console.log('New res.data is now', res.data)
+                
                 this.props.getModelArr(res.data);
             })
     }
@@ -111,7 +106,7 @@ class Private extends Component {
         this.setState({
             tempColor: selectedColor
         })
-        // console.log('now state is ', this.state)
+       
 
     }
     setTempYear(selectedYear) {
@@ -122,17 +117,15 @@ class Private extends Component {
 
     enterInventory() {
         let newCar = this.state;
-        // console.log('newCar is now ', newCar)
+     
         if (newCar.tempColor && newCar.tempMake && newCar.tempModel && newCar.tempYear) {
             axios.post(`/enterinventory`, newCar)
                 .then(res => {
-                    // console.log('enterinv res.data is finally', res.data)
+            
                     this.setState({
 
                         localInventory: res.data
                     })
-
-                    // console.log('filtered res.data is now', res.data)
                 })
             axios.post('/send_email', newCar)
                 .then(this.searchAllInventory)
@@ -150,7 +143,7 @@ class Private extends Component {
                     editingIndex: -1
                 })
 
-                // console.log('all inv res.data is now', res.data)
+               
             })
 
     }
@@ -164,7 +157,7 @@ class Private extends Component {
                 {
                     label: 'Yes',
                     onClick: () => {
-                        console.log('the id to delete is ', id)
+                     
                         axios.delete(`/delete_inventory/${id}`)
                             .then(this.searchAllInventory)
                     }
@@ -175,10 +168,6 @@ class Private extends Component {
                 }
             ]
         })
-
-        // console.log('the id to delete is ', id)
-        // axios.delete(`/delete_inventory/${id}`)
-        //     .then(this.searchAllInventory)
     }
     editInventory(vehicleID) {
 
@@ -192,7 +181,7 @@ class Private extends Component {
         }
         if (this.state.tempColor && this.state.tempMake && this.state.tempModel && this.state.tempYear) {
             axios.put(`/edit_inventory`, editObj)
-                .then(this.searchAllInventory)//I should really put schtuff here.
+                .then(this.searchAllInventory)
 
         }
         else {
@@ -230,9 +219,7 @@ class Private extends Component {
         })
 
 
-
-    }
-
+   }
 
     render() {
 
@@ -276,15 +263,12 @@ class Private extends Component {
                 : null;
 
         var searchResults = this.state.localInventory.map((vehicle, index) => {
-            // console.log(vehicle)
-            // console.log(makeSelection)
+
             function shortenDate(fullDate) {
                 var shortDate = fullDate.substring(0, 10)
                 return shortDate;
             }
             return (
-
-
                 this.state.editingIndex !== index ?
                     <tr key={index}>
                         <td>{vehicle.make}</td>
@@ -326,14 +310,9 @@ class Private extends Component {
                             <button onClick={(e) => this.deleteInventory(vehicle.id)}>Delete</button>
                             <button onClick={(e) => this.editInventory(vehicle.id)}>save</button></td>
                     </tr>
-
-
             )
         })
         return (
-
-
-
 
             <div>
                 <div className="topnav" id="myTopnav">
@@ -345,9 +324,6 @@ class Private extends Component {
                     
                     {this.props.is_premium ? null :
                         <a href="/#/upgrade" >Upgrade</a>}
-
-
-
 
                     <a href="/#/profile">Profile</a>
                     <a href={REACT_APP_LOGOUT}>Logout</a>
@@ -394,15 +370,6 @@ class Private extends Component {
 
 
                 </div>
-
-
-
-
-                {/* <div className="new_waitlist">
-
-
-                </div> */}
-
 
                 <div className='inventory_body_wrapper'>
 
@@ -458,13 +425,8 @@ class Private extends Component {
 
                 </div>
             </div >
-
-
-
-
         )
     }
-
 }
 
 function mapStateToProps(state) {

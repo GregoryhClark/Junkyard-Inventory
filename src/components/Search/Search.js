@@ -28,7 +28,6 @@ class Private extends Component {
 
         this.props.getUser()
             .then((res) => {
-                console.log('here it is!', res.value)
                 this.setState({
                     localUserID: res.value.id,
                     userIsAdmin: res.value.is_admin,
@@ -38,24 +37,20 @@ class Private extends Component {
 
         axios.get('/findcolor')
             .then(res => {
-                // console.log('color res.data is now', res.data)
                 this.props.getColorArr(res.data);
             })
 
         axios.get('/findmakes')
             .then(res => {
-                // console.log(' make res.data is now', res.data)
                 this.props.getMakeArr(res.data);
             })
 
         axios.get('/findyear')
             .then(res => {
-                // console.log('year res.data is now', res.data)
                 this.props.getYearArr(res.data);
             })
         axios.get('allinventory')
             .then(res => {
-                console.log(res.data)
                 this.setState({
                     localInventory: res.data
                 })
@@ -66,19 +61,14 @@ class Private extends Component {
 
 
     getModels(selectedMake) {
-        // console.log(selectedMake)
+
         this.setState({
             tempMake: selectedMake
         })
         axios.get(`/findmodels/${selectedMake}`)
             .then(res => {
-                console.log('New res.data is now', res.data)
                 this.props.getModelArr(res.data);
-
-
             })
-
-
     }
     setTempModel(selectedModel) {
         this.setState({
@@ -89,8 +79,6 @@ class Private extends Component {
         this.setState({
             tempColor: selectedColor
         })
-        // console.log('now state is ', this.state)
-
     }
     setTempYear(selectedYear) {
         this.setState({
@@ -113,22 +101,17 @@ class Private extends Component {
     }
 
     searchInventoryFiltered() {
-        // if()
-
         let searchObj = this.state;
         let { tempMake, tempColor, tempModel, tempYear } = this.state;
         if (tempMake && tempColor && tempModel && tempYear) {
 
             axios.get(`/filteredinventory/${tempMake}/${tempModel}/${tempYear}/${tempColor}`)
                 .then(res => {
-                    console.log('filtered res.data is finally', res.data)
                     this.setState({
 
                         localInventory: res.data,
                         filterClicked: true
                     })
-
-                    console.log('filtered res.data is now', res.data)
                 })
         } else {
             alert('You must select all values.')
@@ -142,8 +125,6 @@ class Private extends Component {
                     localInventory: res.data,
                     filterClicked: false
                 })
-
-                console.log('all inv res.data is now', res.data)
             })
 
     }
@@ -178,7 +159,7 @@ class Private extends Component {
         var linkToNewWaitlist = <Link to='/dashboard/new_waitlist'><p>Click</p></Link>
 
         var searchResultsHeaders = this.state.localInventory.length ?
-            // <div className ="search_table_headers">
+
             <tr>
                 <th>Make</th>
                 <th>Model</th>
@@ -186,7 +167,6 @@ class Private extends Component {
                 <th>Color</th>
                 <th>Date Entered</th>
             </tr>
-            //</div>
             : this.state.filterClicked ? <div>
                 <p className="oops">Oops, it looks like we don't have any of those. <Link to="/dashboard/new_waitlist">Click here</Link> to add to your waitlist.
                 </p>
@@ -216,7 +196,6 @@ class Private extends Component {
             )
         })
         var modelSelection = this.props.modelArr.map((model, index) => {
-            console.log(modelSelection)
 
             if (this.props.modelArr.length > 0) {
                 return (
@@ -241,8 +220,6 @@ class Private extends Component {
 
                     {this.props.is_premium ? null :
                         <a href="/#/upgrade" >Upgrade</a>}
-
-
 
                     <a href="/#/profile">Profile</a>
                     <a href={REACT_APP_LOGOUT}>Logout</a>

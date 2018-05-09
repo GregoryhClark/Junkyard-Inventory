@@ -34,35 +34,29 @@ class Private extends Component {
 
         this.props.getUser()
             .then((res) => {
-                console.log('here it is!', res.value)
-                console.log(this.props.user.id)
+
                 this.setState({
                     localUserID: res.value.id,
                     userIsAdmin: res.value.is_admin
                 })
-                // axios.get(`/user_waitlist/${res.value.id}`).then(
 
-                //     this.setState({
-                //         localWaitlist:res.data
-                //     })
-                // )
             })
 
         axios.get('/findcolor')
             .then(res => {
-                // console.log('color res.data is now', res.data)
+         
                 this.props.getColorArr(res.data);
             })
 
         axios.get('/findmakes')
             .then(res => {
-                // console.log(' make res.data is now', res.data)
+            
                 this.props.getMakeArr(res.data);
             })
 
         axios.get('/findyear')
             .then(res => {
-                // console.log('year res.data is now', res.data)
+       
                 this.props.getYearArr(res.data);
             })
         axios.get(`/user_waitlist/${this.props.user.id}`).then(res => {
@@ -72,19 +66,19 @@ class Private extends Component {
             })
         })
 
-        // console.log(this.props.user)
+
 
 
 
     }
     getModels(selectedMake) {
-        // console.log(selectedMake)
+       
         this.setState({
             tempMake: selectedMake
         })
         axios.get(`/findmodels/${selectedMake}`)
             .then(res => {
-                // console.log('New res.data is now', res.data)
+              
                 this.props.getModelArr(res.data);
 
             })
@@ -111,7 +105,7 @@ class Private extends Component {
     }
 
     deleteWaitlist(id) {
-        console.log('the id to delete is ', id)
+      
 
         confirmAlert({
             title: 'Confirm Delete',
@@ -143,8 +137,6 @@ class Private extends Component {
 
     render() {
         const user = this.props.user;
-        // console.log("user is now ", user)
-        // console.log("colorArr is now", this.props.colorArr)
 
         var waitlistButtonText = () => {
             if (!this.state.waitlistVisible) {
@@ -153,7 +145,7 @@ class Private extends Component {
         }
 
         var searchResultsHeaders = this.state.localWaitlist.length ?
-            // <div className ="search_table_headers">
+    
             <tr>
                 <th>Make</th>
                 <th>Model</th>
@@ -161,7 +153,7 @@ class Private extends Component {
                 <th>Color</th>
                 <th>Date Entered</th>
             </tr>
-            //</div>
+            
             :null;
 
         var makeSelection = this.props.makeArr.map((make, index) => {
@@ -185,7 +177,7 @@ class Private extends Component {
             )
         })
         var modelSelection = this.props.modelArr.map((model, index) => {
-            console.log(modelSelection)
+           
 
             if (this.props.modelArr.length > 0) {
                 return (
@@ -200,7 +192,7 @@ class Private extends Component {
             }
         })
         var userWaitlist = this.state.localWaitlist.map((vehicle, index) => {
-            console.log(this.state.localWaitlist)
+        
             return (
 
                 <tr key={index}>

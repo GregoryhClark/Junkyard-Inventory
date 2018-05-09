@@ -32,7 +32,7 @@ class Private extends Component {
 
         this.props.getUser()
             .then((res) => {
-                console.log('here it is!', res.value)
+             
                 this.setState({
                     localUserID: res.value.id,
                     userIsAdmin: res.value.is_admin
@@ -41,37 +41,31 @@ class Private extends Component {
 
         axios.get('/findcolor')
             .then(res => {
-                // console.log('color res.data is now', res.data)
+      
                 this.props.getColorArr(res.data);
             })
 
         axios.get('/findmakes')
             .then(res => {
-                // console.log(' make res.data is now', res.data)
+        
                 this.props.getMakeArr(res.data);
             })
 
         axios.get('/findyear')
             .then(res => {
-                // console.log('year res.data is now', res.data)
+           
                 this.props.getYearArr(res.data);
             })
-
-        console.log(this.props.user)
-
-
 
     }
 
 
     getModels(selectedMake) {
-        // console.log(selectedMake)
         this.setState({
             tempMake: selectedMake
         })
         axios.get(`/findmodels/${selectedMake}`)
             .then(res => {
-                // console.log('New res.data is now', res.data)
                 this.props.getModelArr(res.data);
 
             })
@@ -88,7 +82,6 @@ class Private extends Component {
         this.setState({
             tempColor: selectedColor
         })
-        // console.log('now state is ', this.state)
 
     }
     setTempYear(selectedYear) {
@@ -101,7 +94,6 @@ class Private extends Component {
     addWaitlist() {
         let carDetails = this.state;
         carDetails.user_id = this.props.user.id;
-        console.log('carDetails on dash is now ', carDetails)
 
         axios.post(`/addwaitlist`, carDetails)
             .then(res => {
@@ -144,7 +136,6 @@ class Private extends Component {
             )
         })
         var modelSelection = this.props.modelArr.map((model, index) => {
-            console.log(modelSelection)
 
             if (this.props.modelArr.length > 0) {
                 return (
@@ -160,18 +151,13 @@ class Private extends Component {
             }
         })
         var userWaitlist = this.state.localWaitlist.map((vehicle, index) => {
-            console.log(this.state.localWaitlist)
             return (
 
                 <tr key={index}>
-                    {/* I can add the edit functionality later if needed */}
-                    {/* <td>{vehicle.make} <select onChange={(e) => this.getModels(e.target.value)}><option>Select</option>{makeSelection}</select></td>
-                <td>{vehicle.model}<select><option>Select</option>{modelSelection}</select></td>
-                <td>{vehicle.year}<select><option>Select</option>{yearSelection}</select></td>
-                <td>{vehicle.color}<select><option>Select</option>{colorSelection}</select></td> */}
+                   
                     <td>{vehicle.make}</td>
                     <td>
-                        {/* <option>Select</option> */}
+
                         {vehicle.model}
                     </td>
                     <td>{vehicle.year}</td>
@@ -179,7 +165,7 @@ class Private extends Component {
 
                     <td>
                         <button onClick={(e) => this.deleteWaitlist(vehicle.id)}>Delete</button>
-                        {/* <button onClick={(e) => this.deleteInventory(vehicle.id)}>Edit</button> */}
+                      
                     </td>
                 </tr>
             )

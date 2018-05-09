@@ -15,11 +15,7 @@ class Private extends Component {
     componentDidMount() {
 
         this.props.getUser()
-            .then((res) => {
-                console.log('here it is!', res.value)
-            })
-
-    } 
+    }
 
     changeHamburger() {
         var x = document.getElementById("myTopnav");
@@ -36,13 +32,13 @@ class Private extends Component {
         return (
             <div className='dashboard_wrapper'>
 
-                         <div className="topnav" id="myTopnav">
+                <div className="topnav" id="myTopnav">
                     <a href="/#/dashboard" className="active">Dashboard</a>
                     <a href="/#/search" >Search</a>
                     {this.props.user.is_admin ?
                         <a href="/#/inventory">Inventory</a> : null
                     }
-                    
+
                     {this.props.is_premium ? null :
                         <a href="/#/upgrade" >Upgrade</a>}
 
@@ -66,13 +62,13 @@ class Private extends Component {
 
                 <div className="dash_nav">
                     <a href="/#/dashboard/my_waitlist">
-                    <div>
-                        <p>MY WAITLISTS</p>
-                    </div></a>
+                        <div>
+                            <p>MY WAITLISTS</p>
+                        </div></a>
                     <a href="/#/dashboard/new_waitlist">
-                    <div>
-                        <p>ADD WAITLIST</p>
-                    </div></a>
+                        <div>
+                            <p>ADD WAITLIST</p>
+                        </div></a>
                 </div>
 
                 <Switch>

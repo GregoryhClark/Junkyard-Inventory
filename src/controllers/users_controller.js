@@ -127,11 +127,8 @@ module.exports = {
         const db = req.app.get('db');
         var { tempColor, tempMake, tempModel, tempYear } = req.body;
         tempYear = parseInt(tempYear);
-        console.log('req.body is now', req.body)
-        console.log('tempYear is now', tempYear)
         db.check_waitlists([tempMake, tempModel, tempYear, tempColor])
             .then((users) => {
-                console.log('users is now ', users)
                 res.status(200).send(users)
 
                 users.map((user) => {
@@ -149,7 +146,6 @@ module.exports = {
                     });
 
                     // setup email data with unicode symbols
-                    console.log('hey, wise guy!',user.email)
                     let mailOptions = {
                         from: `"Test Greg" <${EMAIL_USER}>`, // sender address
                         to: `${user.email}`, // list of receivers
@@ -187,7 +183,6 @@ module.exports = {
                     });
 
                     // setup email data with unicode symbols
-                    console.log('hey, wise guy!',user.email)
                     let mailOptions = {
                         from: `"Test Greg" <${EMAIL_USER}>`, // sender address
                         to: `${user.email}`, // list of receivers

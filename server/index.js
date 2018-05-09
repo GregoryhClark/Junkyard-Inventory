@@ -8,11 +8,11 @@ const express = require('express')
 , Auth0Strategy = require('passport-auth0')
 , massive = require('massive')
 , users_controller = require('../src/controllers/users_controller.js')
-, bodyParser = require('body-parser')//Dont forget this next time you fool!!!!
+, bodyParser = require('body-parser')
 , exphbs = require('express-handlebars')
 , nodemailer = require('nodemailer')
 , cors = require('cors')
-, stripe = require('stripe')(process.env.REACT_APP_STRIPE_KEY)//WTF????
+, stripe = require('stripe')(process.env.REACT_APP_STRIPE_KEY)
 
 
 const {
@@ -122,12 +122,6 @@ app.delete('/delete_waitlist/:id', users_controller.deleteWaitlist)
 app.post('/api/payment/:id', users_controller.upgradeUser)
 
 app.get('/vehicles' , users_controller.getByColor)
-// app.get('/vehicles', function(req,res, next){
-//     var result = vehicles;
-//     if (req.query.search){
-//         result = result.filter(function())
-//     }
-// })
 
 app.listen(SERVER_PORT, () => console.log(`listening on port ${SERVER_PORT}`));
 

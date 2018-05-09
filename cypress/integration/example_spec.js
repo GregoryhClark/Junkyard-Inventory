@@ -796,7 +796,6 @@ describe('Kitchen Sink', function () {
       // https://on.cypress.io/each
       cy.get('.connectors-each-ul>li')
         .each(function ($el, index, $list) {
-          console.log($el, index, $list)
         })
     })
 
