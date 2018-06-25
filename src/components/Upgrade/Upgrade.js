@@ -1,20 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { getUser } from './../../ducks/users';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Elements } from 'react-stripe-elements';
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
 import './Upgrade.css';
 // import InjectedCheckoutForm from './CheckoutForm';
-const {REACT_APP_LOGOUT, REACT_APP_PAYMENT_REQ} = process.env
+const { REACT_APP_LOGOUT, REACT_APP_PAYMENT_REQ } = process.env
 class Private extends Component {
     constructor() {
         super()
         this.state = {
 
             userIsAdmin: false,
-            userIsPremium: false
+            userIsPremium: false,
+            redirect: false
 
         }
         this.onToken = this.onToken.bind(this);
@@ -32,7 +33,9 @@ class Private extends Component {
 
         token.card = void 0;
         axios.post(`${REACT_APP_PAYMENT_REQ}${user.id}`, { token, amount: 100 }).then(response => {
+            this.setState({ redirect: true })
             alert(`You have been upgraded to premium!`)
+            return <Redirect to='/dashboard' />
         });
 
     }
@@ -46,6 +49,12 @@ class Private extends Component {
     }
     render() {
 
+        const { redirect } = this.state;///////////
+
+        if (redirect) {
+            return <Redirect to='/dashboard' />;//////////
+        }
+
 
         let user = this.props.user;
         return (
@@ -57,8 +66,8 @@ class Private extends Component {
                     {this.props.user.is_admin ?
                         <a href="/#/inventory">Inventory</a> : null
                     }
-                    
-                    {this.props.is_premium ? null :
+
+                    {this.props.user.is_premium ? null :
                         <a href="/#/upgrade" >Upgrade</a>}
 
                     <a href="/#/profile">Profile</a>
@@ -66,13 +75,13 @@ class Private extends Component {
                     <a href="javascript:void(0);" className="icon" onClick={this.myFunction}>&#9776;</a>
                 </div>
 
-                <h1 className = "upgrade_header">Upgrade to Premium for just 99 cents!</h1>
+                <h1 className="upgrade_header">Upgrade to Premium for just 99 cents!</h1>
 
-             
-                
+
+
                 <div className="upgrade_wrapper">
 
-                   <p> Want immdediate notifications? Premium gets you immediate updates whenever a new vehicle is added to our inventory. With a basic account, notifications are sent out 24 hours after they are logged in our system.</p>
+                    <p> Want immdediate notifications? Premium gets you immediate updates whenever a new vehicle is added to our inventory. With a basic account, notifications are sent out 24 hours after they are logged in our system.</p>
 
                 </div>
 

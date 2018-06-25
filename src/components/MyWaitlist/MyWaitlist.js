@@ -130,6 +130,7 @@ class Private extends Component {
         }
 
         var searchResultsHeaders = this.state.localWaitlist.length ?
+        // var searchResultsHeaders = this.state.localWaitlist.length ?
     
             <tr>
                 <th>Make</th>

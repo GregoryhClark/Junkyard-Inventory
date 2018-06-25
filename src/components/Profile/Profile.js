@@ -65,7 +65,7 @@ class Private extends React.Component {
                         <a href="/#/inventory">Inventory</a> : null
                     }
                     
-                    {this.props.is_premium ? null :
+                    {this.props.user.is_premium ? null :
                         <a href="/#/upgrade" >Upgrade</a>}
 
 

@@ -26,8 +26,19 @@ class Private extends Component {
         }
     }
 
+
     render() {
         const user = this.props.user;
+        function checkWaitlistLength() {
+            console.log('hit')
+            axios.get(`/user_waitlist/${user.id}`).then(res => {
+                if(res.data.length === 0){
+                    alert("It looks like you don't have any vehicles in your waitlist at this time.")
+                }
+            })
+        }
+        
+        console.log(this.props.user.is_premium);
 
         return (
             <div className='dashboard_wrapper'>
@@ -39,7 +50,7 @@ class Private extends Component {
                         <a href="/#/inventory">Inventory</a> : null
                     }
 
-                    {this.props.is_premium ? null :
+                    {this.props.user.is_premium ? null :
                         <a href="/#/upgrade" >Upgrade</a>}
 
 
@@ -61,7 +72,7 @@ class Private extends Component {
                 </div>
 
                 <div className="dash_nav">
-                    <a href="/#/dashboard/my_waitlist">
+                    <a href="/#/dashboard/my_waitlist" onClick={()=>checkWaitlistLength()}>
                         <div>
                             <p>MY WAITLISTS</p>
                         </div></a>
