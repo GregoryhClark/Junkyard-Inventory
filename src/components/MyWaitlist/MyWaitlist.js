@@ -24,10 +24,7 @@ class Private extends Component {
             userIsAdmin: false,
             userIsPremium: false,
             viewingWaitlist: false
-
-
         }
-
 
     }
     componentDidMount() {
@@ -66,10 +63,6 @@ class Private extends Component {
             })
         })
 
-
-
-
-
     }
     getModels(selectedMake) {
        
@@ -82,8 +75,6 @@ class Private extends Component {
                 this.props.getModelArr(res.data);
 
             })
-
-
     }
     setTempModel(selectedModel) {
         this.setState({
@@ -105,8 +96,6 @@ class Private extends Component {
     }
 
     deleteWaitlist(id) {
-      
-
         confirmAlert({
             title: 'Confirm Delete',
             message: 'Are you sure you want to delete this?',
@@ -129,10 +118,6 @@ class Private extends Component {
                   }
             ]
         })
-
-
-
-
     }
 
     render() {

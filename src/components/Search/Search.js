@@ -85,14 +85,14 @@ class Private extends Component {
             tempYear: selectedYear
         })
     }
-    searchByQuery() {
-        axios.get(`/vehicles?color=${this.state.searchByColor}`).then(res => {
-            this.setState({
-                localInventory: res.data,
-                filterClicked: true
-            })
-        })
-    }
+    // searchByQuery() {
+    //     axios.get(`/vehicles?color=${this.state.searchByColor}`).then(res => {
+    //         this.setState({
+    //             localInventory: res.data,
+    //             filterClicked: true
+    //         })
+    //     })
+    // }
     updateSearchByColor(color) {
         this.setState({
             searchByColor: color
@@ -228,8 +228,8 @@ class Private extends Component {
 
                 <h1 className="search_header">Search our existing inventory to see if we have what you need!</h1>
 
-                <input onChange={(e) => this.updateSearchByColor(e.target.value)} type="text" className="url_query" />
-                <button onClick={() => this.searchByQuery()}>Filter By Color</button>
+                {/* <input onChange={(e) => this.updateSearchByColor(e.target.value)} type="text" className="url_query" placeholder="Enter color here" />
+                <button onClick={() => this.searchByQuery()}>Filter By Color</button> */}
 
                 <div className="search_bar">
 

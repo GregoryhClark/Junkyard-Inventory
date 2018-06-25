@@ -10,6 +10,7 @@ import './NewWaitlist.css';
 class Private extends Component {
     constructor() {
         super()
+        //set state of all data that may change on this component
         this.state = {
             localUserID: -1,
             localWaitlist: [],
@@ -25,11 +26,12 @@ class Private extends Component {
 
 
         }
-        this.addWaitlist = this.addWaitlist.bind(this)//wtf?
+        //Bind this function
+        this.addWaitlist = this.addWaitlist.bind(this)
 
     }
     componentDidMount() {
-
+        //get the user information and set some of that information to the local state.
         this.props.getUser()
             .then((res) => {
              
@@ -38,10 +40,10 @@ class Private extends Component {
                     userIsAdmin: res.value.is_admin
                 })
             })
-
+            //axios requests to get the list of colors from the db.
         axios.get('/findcolor')
             .then(res => {
-      
+                //invoke getColorArr function (located in the reducer)passing the result from the axios request
                 this.props.getColorArr(res.data);
             })
 
