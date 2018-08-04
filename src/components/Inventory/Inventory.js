@@ -66,7 +66,6 @@ class Private extends Component {
     }
     searchInventoryFiltered() {
 
-        let searchObj = this.state;
         let { tempMake, tempColor, tempModel, tempYear } = this.state;
         if (tempMake && tempColor && tempModel && tempYear) {
 
@@ -223,7 +222,6 @@ class Private extends Component {
 
     render() {
 
-        const user = this.props.user;
         var makeSelection = this.props.makeArr.map((make, index) => {
             return (
 

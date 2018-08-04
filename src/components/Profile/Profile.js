@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { getUser } from './../../ducks/users'
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Profile.css';
 const { REACT_APP_LOGOUT } = process.env
@@ -54,7 +53,7 @@ class Private extends React.Component {
         }
     }
     render() {
-        const user = this.props.user;
+
         return (
             <div>
 

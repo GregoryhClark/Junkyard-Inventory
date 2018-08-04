@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { getUser } from './../../ducks/users';
-import { Link, Redirect } from 'react-router-dom';
-import { Elements } from 'react-stripe-elements';
+import { Redirect } from 'react-router-dom';
+// import { Elements } from 'react-stripe-elements';REMOVE_LATER
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
 import './Upgrade.css';
@@ -22,7 +22,7 @@ class Private extends Component {
     }
 
     componentDidMount() {
-        let user = this.props.user;
+
         this.props.getUser()
 
     }
@@ -56,7 +56,6 @@ class Private extends Component {
         }
 
 
-        let user = this.props.user;
         return (
             <div>
 

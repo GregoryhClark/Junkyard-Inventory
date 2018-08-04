@@ -4,13 +4,7 @@ import './index.css';
 import App from './App';
 import {Provider} from 'react-redux'
 import store from './store'
-import {StripeProvider} from 'react-stripe-elements';
 
-
-
-
-
-// import registerServiceWorker from './registerServiceWorker';
 
 
 ReactDOM.render(
@@ -18,4 +12,4 @@ ReactDOM.render(
 <App />
 </Provider>
 , document.getElementById('root'));
-// registerServiceWorker();
+

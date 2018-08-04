@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { getUser } from './../../ducks/users';
-import { Link, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import axios from 'axios';
-import logo from './Car_logo.png';
 import './Dashboard.css';
 import MyWaitlist from '../MyWaitlist/MyWaitlist';
 import NewWaitlist from '../NewWaitlist/NewWaitlist';
@@ -30,15 +29,13 @@ class Private extends Component {
     render() {
         const user = this.props.user;
         function checkWaitlistLength() {
-            console.log('hit')
             axios.get(`/user_waitlist/${user.id}`).then(res => {
                 if(res.data.length === 0){
                     alert("It looks like you don't have any vehicles in your waitlist at this time.")
                 }
             })
         }
-        
-        console.log(this.props.user.is_premium);
+
 
         return (
             <div className='dashboard_wrapper'>

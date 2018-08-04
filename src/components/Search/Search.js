@@ -21,8 +21,8 @@ class Private extends Component {
             searchByColor: ''
 
         }
-        this.searchInventoryFiltered = this.searchInventoryFiltered.bind(this)//wtf?
-        this.searchAllInventory = this.searchAllInventory.bind(this)//wtf?
+        this.searchInventoryFiltered = this.searchInventoryFiltered.bind(this)
+        this.searchAllInventory = this.searchAllInventory.bind(this)
     }
     componentDidMount() {
 
@@ -85,6 +85,7 @@ class Private extends Component {
             tempYear: selectedYear
         })
     }
+    //This feature will be added later...
     // searchByQuery() {
     //     axios.get(`/vehicles?color=${this.state.searchByColor}`).then(res => {
     //         this.setState({
@@ -101,7 +102,7 @@ class Private extends Component {
     }
 
     searchInventoryFiltered() {
-        let searchObj = this.state;
+
         let { tempMake, tempColor, tempModel, tempYear } = this.state;
         if (tempMake && tempColor && tempModel && tempYear) {
 
@@ -156,7 +157,7 @@ class Private extends Component {
             )
         })
 
-        var linkToNewWaitlist = <Link to='/dashboard/new_waitlist'><p>Click</p></Link>
+        // var linkToNewWaitlist = <Link to='/dashboard/new_waitlist'><p>Click</p></Link>  //REMOVE_LATER
 
         var searchResultsHeaders = this.state.localInventory.length ?
 
@@ -174,7 +175,7 @@ class Private extends Component {
                 : null;
 
 
-        const user = this.props.user;
+
         var makeSelection = this.props.makeArr.map((make, index) => {
             return (
 

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { confirmAlert } from 'react-confirm-alert';
 import { getUser, getColorArr, getMakeArr, getModelArr, getYearArr } from './../../ducks/users';
-import { Link, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
 import './MyWaitlist.css';
 import 'react-confirm-alert/src/react-confirm-alert.css'
@@ -121,13 +120,13 @@ class Private extends Component {
     }
 
     render() {
-        const user = this.props.user;
+        
 
-        var waitlistButtonText = () => {
-            if (!this.state.waitlistVisible) {
-                return 'View Waitlist'
-            } else { return 'Close Waitlist' }
-        }
+        // var waitlistButtonText = () => {  REMOVE_LATER
+        //     if (!this.state.waitlistVisible) {
+        //         return 'View Waitlist'
+        //     } else { return 'Close Waitlist' }
+        // }
 
         var searchResultsHeaders = this.state.localWaitlist.length ?
         // var searchResultsHeaders = this.state.localWaitlist.length ?
@@ -142,41 +141,41 @@ class Private extends Component {
             
             :null;
 
-        var makeSelection = this.props.makeArr.map((make, index) => {
-            return (
+        // var makeSelection = this.props.makeArr.map((make, index) => REMOVE_LATER ...yeah, this big chunk
+        //     return (
 
-                <option key={index}>{make.make}</option>
-            )
-        })
-        var colorSelection = this.props.colorArr.map((color, index) => {
+        //         <option key={index}>{make.make}</option>
+        //     )
+        // })
+        // var colorSelection = this.props.colorArr.map((color, index) => {
 
-            return (
+        //     return (
 
-                <option key={index}>{color.color}</option>
-            )
-        })
+        //         <option key={index}>{color.color}</option>
+        //     )
+        // })
 
-        var yearSelection = this.props.yearArr.map((year, index) => {
-            return (
+        // var yearSelection = this.props.yearArr.map((year, index) => {
+        //     return (
 
-                <option key={index}>{year.year}</option>
-            )
-        })
-        var modelSelection = this.props.modelArr.map((model, index) => {
+        //         <option key={index}>{year.year}</option>
+        //     )
+        // })
+        // var modelSelection = this.props.modelArr.map((model, index) => {
            
 
-            if (this.props.modelArr.length > 0) {
-                return (
-                    <option key={index}>{model.model}</option>
+        //     if (this.props.modelArr.length > 0) {
+        //         return (
+        //             <option key={index}>{model.model}</option>
 
-                )
-            } else {
-                return (
+        //         )
+        //     } else {
+        //         return (
 
-                    <option >Select Make First</option>
-                )
-            }
-        })
+        //             <option >Select Make First</option>
+        //         )
+        //     }
+        // })
         var userWaitlist = this.state.localWaitlist.map((vehicle, index) => {
         
             return (

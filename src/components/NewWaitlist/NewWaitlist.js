@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { getUser, getColorArr, getMakeArr, getModelArr, getYearArr } from './../../ducks/users';
-import { Link, Switch, Route } from 'react-router-dom';
+// import { Link, Switch, Route } from 'react-router-dom'; REMOVE_LATER
 import axios from 'axios';
 import './NewWaitlist.css';
 
@@ -152,26 +152,26 @@ class Private extends Component {
                 )
             }
         })
-        var userWaitlist = this.state.localWaitlist.map((vehicle, index) => {
-            return (
+        // var userWaitlist = this.state.localWaitlist.map((vehicle, index) => { REMOVE_LATER
+        //     return (
 
-                <tr key={index}>
+        //         <tr key={index}>
                    
-                    <td>{vehicle.make}</td>
-                    <td>
+        //             <td>{vehicle.make}</td>
+        //             <td>
 
-                        {vehicle.model}
-                    </td>
-                    <td>{vehicle.year}</td>
-                    <td>{vehicle.color}</td>
+        //                 {vehicle.model}
+        //             </td>
+        //             <td>{vehicle.year}</td>
+        //             <td>{vehicle.color}</td>
 
-                    <td>
-                        <button onClick={(e) => this.deleteWaitlist(vehicle.id)}>Delete</button>
+        //             <td>
+        //                 <button onClick={(e) => this.deleteWaitlist(vehicle.id)}>Delete</button>
                       
-                    </td>
-                </tr>
-            )
-        })
+        //             </td>
+        //         </tr>
+        //     )
+        // })
 
 
 
