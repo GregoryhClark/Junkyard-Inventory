@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import logo from './Car_logo.png';
 import './Login.css';
-import Button from '@material-ui/core/Button';
 import 'typeface-roboto';
 export default class Login extends Component {
     render() {
@@ -20,7 +19,6 @@ export default class Login extends Component {
                 </div>
                 <div className="login_button_wrapper">
                     <a className="login_btn" href={process.env.REACT_APP_LOGIN}>
-                        {/* <Button>Login</Button> */}
                         <button>Login</button>
                     </a>
                 </div>
